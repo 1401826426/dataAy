@@ -1,34 +1,26 @@
 package com.fei.manager.pojo;
 
-import java.util.Date;
-
 public class User {
-    private String id;
+    private Long id;
 
     private String name;
 
-    private String password;
+    private String pic;
 
-    private Integer role;
-
-    private String wechat;
-
-    private String tel;
+    private String telephone;
 
     private String mail;
 
-    private Integer state;
+    private Integer roleGroup;
 
-    private Date createTime;
+    private String weChat;
 
-    private String checkNum;
-
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -39,36 +31,20 @@ public class User {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getPassword() {
-        return password;
+    public String getPic() {
+        return pic;
     }
 
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+    public void setPic(String pic) {
+        this.pic = pic == null ? null : pic.trim();
     }
 
-    public Integer getRole() {
-        return role;
+    public String getTelephone() {
+        return telephone;
     }
 
-    public void setRole(Integer role) {
-        this.role = role;
-    }
-
-    public String getWechat() {
-        return wechat;
-    }
-
-    public void setWechat(String wechat) {
-        this.wechat = wechat == null ? null : wechat.trim();
-    }
-
-    public String getTel() {
-        return tel;
-    }
-
-    public void setTel(String tel) {
-        this.tel = tel == null ? null : tel.trim();
+    public void setTelephone(String telephone) {
+        this.telephone = telephone == null ? null : telephone.trim();
     }
 
     public String getMail() {
@@ -79,27 +55,19 @@ public class User {
         this.mail = mail == null ? null : mail.trim();
     }
 
-    public Integer getState() {
-        return state;
+    public Integer getRoleGroup() {
+        return roleGroup;
     }
 
-    public void setState(Integer state) {
-        this.state = state;
+    public void setRoleGroup(Integer roleGroup) {
+        this.roleGroup = roleGroup;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public String getWeChat() {
+        return weChat;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getCheckNum() {
-        return checkNum;
-    }
-
-    public void setCheckNum(String checkNum) {
-        this.checkNum = checkNum == null ? null : checkNum.trim();
+    public void setWeChat(String weChat) {
+        this.weChat = weChat == null ? null : weChat.trim();
     }
 }
