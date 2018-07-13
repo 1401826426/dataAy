@@ -1,6 +1,7 @@
 package com.fei.common.util.communication.telephone.content;
 
-import com.fei.common.util.communication.telephone.content.AbstractAliyunTelephoneContent;
+import com.fei.common.util.communication.telephone.SMS_TEMPLATE_CODE;
+import com.fei.common.util.communication.telephone.SMS_TEMPLATE_PARAM;
 
 public class SignContent extends AbstractAliyunTelephoneContent{
 	

@@ -1,4 +1,4 @@
-package com.fei.common.util.communication.telephone.content;
+package com.fei.common.util.communication.telephone;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.fei.common.util.communication.AbstractContent;
+import com.fei.common.util.communication.telephone.SMS_TEMPLATE_CODE;
+import com.fei.common.util.communication.telephone.TemplateCoderProvider;
 
 public abstract class AbstractAliyunTelephoneContent extends AbstractContent {
 	
