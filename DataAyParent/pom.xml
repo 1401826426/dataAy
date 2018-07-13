@@ -17,10 +17,39 @@
 		<jackson.version>2.9.0</jackson.version>
 		<crawler4j.version>4.4.0</crawler4j.version>
 		<mybatis-generator-version>1.3.5</mybatis-generator-version>
+		<javax.version>3.1.0</javax.version>
+		<aliyun.java.sdk.version>3.2.8</aliyun.java.sdk.version>
+		<aliyun.java.sdk.dysmsapi.version>1.1.0</aliyun.java.sdk.dysmsapi.version>
+		<simple.mail>5.0.1</simple.mail>
+		<javax.mail>1.4.5</javax.mail>
 	</properties>
 
 	<dependencyManagement>
 		<dependencies>
+		
+			<!-- https://mvnrepository.com/artifact/com.aliyun/aliyun-java-sdk-dysmsapi -->
+			<dependency>
+				<groupId>com.aliyun</groupId>
+				<artifactId>aliyun-java-sdk-dysmsapi</artifactId>
+				<version>${aliyun.java.sdk.dysmsapi.version}</version>
+			</dependency>
+
+
+			<!-- https://mvnrepository.com/artifact/com.aliyun/aliyun-java-sdk-core -->
+			<dependency>
+				<groupId>com.aliyun</groupId>
+				<artifactId>aliyun-java-sdk-core</artifactId>
+				<version>${aliyun.java.sdk.version}</version>
+			</dependency>
+
+
+			<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>javax.servlet-api</artifactId>
+				<version>${javax.version}</version>
+				<scope>provided</scope>
+			</dependency>
 
 			<!-- spring组件 -->
 			<!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
@@ -77,6 +106,17 @@
 				<version>${spring.security.version}</version>
 			</dependency>
 
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-web</artifactId>
+				<version>${spring.security.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-config</artifactId>
+				<version>${spring.security.version}</version>
+			</dependency>
 
 			<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
 			<dependency>
@@ -84,6 +124,7 @@
 				<artifactId>spring-jdbc</artifactId>
 				<version>${spring.version}</version>
 			</dependency>
+
 
 
 			<!-- mybatis 組件 -->
@@ -151,6 +192,19 @@
 				<groupId>edu.uci.ics</groupId>
 				<artifactId>crawler4j</artifactId>
 				<version>${crawler4j.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.simplejavamail</groupId>
+				<artifactId>simple-java-mail</artifactId>
+				<version>${simple.mail}</version>
+			</dependency>
+			
+			<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+			<dependency>
+				<groupId>javax.mail</groupId>
+				<artifactId>mail</artifactId>
+				<version>${javax.mail}</version>
 			</dependency>
 
 		</dependencies>

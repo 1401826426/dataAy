@@ -5,6 +5,7 @@
     <!-- @ibatorgenerated -->
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="pic" jdbcType="VARCHAR" property="pic" />
     <result column="telephone" jdbcType="VARCHAR" property="telephone" />
     <result column="mail" jdbcType="VARCHAR" property="mail" />
@@ -73,7 +74,7 @@
   </sql>
   <sql id="Base_Column_List">
     <!-- @ibatorgenerated -->
-    id, name, pic, telephone, mail, role_group, we_chat
+    id, name, password, pic, telephone, mail, role_group, we_chat
   </sql>
   <select id="selectByExample" parameterType="com.fei.manager.pojo.UserExample" resultMap="BaseResultMap">
     <!-- @ibatorgenerated -->
@@ -111,12 +112,12 @@
   </delete>
   <insert id="insert" parameterType="com.fei.manager.pojo.User">
     <!-- @ibatorgenerated -->
-    insert into user (id, name, pic, 
-      telephone, mail, role_group, 
-      we_chat)
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR}, 
-      #{telephone,jdbcType=VARCHAR}, #{mail,jdbcType=VARCHAR}, #{roleGroup,jdbcType=INTEGER}, 
-      #{weChat,jdbcType=VARCHAR})
+    insert into user (id, name, password, 
+      pic, telephone, mail, 
+      role_group, we_chat)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{pic,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, #{mail,jdbcType=VARCHAR}, 
+      #{roleGroup,jdbcType=INTEGER}, #{weChat,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.fei.manager.pojo.User">
     <!-- @ibatorgenerated -->
@@ -127,6 +128,9 @@
       </if>
       <if test="name != null">
         name,
+      </if>
+      <if test="password != null">
+        password,
       </if>
       <if test="pic != null">
         pic,
@@ -150,6 +154,9 @@
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
       </if>
       <if test="pic != null">
         #{pic,jdbcType=VARCHAR},
@@ -185,6 +192,9 @@
       <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
       </if>
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
       <if test="record.pic != null">
         pic = #{record.pic,jdbcType=VARCHAR},
       </if>
@@ -210,6 +220,7 @@
     update user
     set id = #{record.id,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
       pic = #{record.pic,jdbcType=VARCHAR},
       telephone = #{record.telephone,jdbcType=VARCHAR},
       mail = #{record.mail,jdbcType=VARCHAR},
@@ -225,6 +236,9 @@
     <set>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
       </if>
       <if test="pic != null">
         pic = #{pic,jdbcType=VARCHAR},
@@ -248,6 +262,7 @@
     <!-- @ibatorgenerated -->
     update user
     set name = #{name,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
       pic = #{pic,jdbcType=VARCHAR},
       telephone = #{telephone,jdbcType=VARCHAR},
       mail = #{mail,jdbcType=VARCHAR},
