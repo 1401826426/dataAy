@@ -8,7 +8,7 @@
 	
 	<!-- <context:property-placeholder location="classpath:*.properties" file-encoding="UTF-8"/> -->
 	
-	<bean id = "propertyHolderConfigure" class="com.fei.manager.plugin.EncodePropertyHolderConfigure">
+	<bean id = "propertyHolderConfigure" class="com.fei.admin.plugin.EncodePropertyHolderConfigure">
 	   <property name = "locations">
 	      <list>
 	         <value>classpath:*.properties</value>
@@ -17,7 +17,7 @@
 	   <property name = "fileEncoding" value="UTF-8"></property>
 	</bean>
 	
-	<context:component-scan base-package="com.fei.manager"/>
+	<context:component-scan base-package="com.fei.admin"/>
 	
 	<!-- <bean id = "AliyunTelephoneCommunicator" class="com.fei.common.util.communication.telephone.AliyunTelephoneCommunicator" init-method="ini">
 	  <property name="defaultConnectTimeout" value="${telephone.aliyun.defaultConnectTimeout}"/>

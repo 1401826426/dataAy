@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<context id="testTables" targetRuntime="MyBatis3">
+		<plugin type="com.fei.common.util.generator.SelfCodeAdapterPlugin" />
+		<commentGenerator>
+			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		<!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://120.79.54.108:3306/data_ay" userId="root"
+			password="qwert">
+			<property name="useSSL" value="false" />
+		</jdbcConnection>
+		<!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 
+			和 NUMERIC 类型解析为java.math.BigDecimal -->
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+
+
+		<!-- targetProject:生成PO类的位置 -->
+		<javaModelGenerator targetPackage="com.fei.admin.pojo"
+			targetProject="\DataAyAdminPojo\src\main\java">
+			<!-- enableSubPackages:是否让schema作为包的后缀 -->
+			<property name="enableSubPackages" value="false" />
+			<!-- 从数据库返回的值被清理前后的空格 -->
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+		<!-- targetProject:mapper映射文件生成的位置 -->
+		<sqlMapGenerator targetPackage="com.fei.admin.mapper"
+			targetProject="\DataAyAdminDao\src\main\java">
+			<!-- enableSubPackages:是否让schema作为包的后缀 -->
+			<property name="enableSubPackages" value="false" />
+		</sqlMapGenerator>
+		<!-- targetPackage：mapper接口生成的位置 -->
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="com.fei.admin.mapper" targetProject="\DataAyAdminDao\src\main\java">
+			<!-- enableSubPackages:是否让schema作为包的后缀 -->
+			<property name="enableSubPackages" value="false" />
+		</javaClientGenerator>
+		<!-- 指定数据库表 -->
+		<table schema="" tableName="user">
+		  <generatedKey column="id" identity="true" sqlStatement="MySQL" />
+		</table>
+		<table schema="" tableName="group_permission">
+		<generatedKey column="id" identity="true" sqlStatement="MySQL" />
+		</table>
+		<table schema="" tableName="module">
+		<generatedKey column="id" identity="true" sqlStatement="MySQL" />
+		</table>
+		<table schema="" tableName="group">
+		<generatedKey column="id" identity="true" sqlStatement="MySQL" />
+		</table>
+		<table schema="" tableName="note_file">
+		<generatedKey column="id" identity="true" sqlStatement="MySQL" />
+		</table>
+	</context>
+</generatorConfiguration>
