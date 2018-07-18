@@ -5,14 +5,20 @@ public class Response {
 	private int status ; 
 	
 	private Object data ;
+	
+	private String msg ; 
+	
 
 	public Response(int status) {
 		this.status = status ; 
 	}
 
-	public Response(int status,Object data) {
-		this.status = status ; 
-		this.data = data ; 
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
 	}
 
 	public int getStatus() {
@@ -36,11 +42,15 @@ public class Response {
 	}
 	
 	public static Response fail(String msg){
-		return new Response(ResponseStatus.FAIL.state(), msg) ; 
+		Response response = new Response(ResponseStatus.FAIL.state()) ; 
+		response.setMsg(msg);
+		return response ;  
 	}
 	
 	public static Response ok(Object data){
-		return new Response(ResponseStatus.OK.state(), data) ; 
+		Response response = new Response(ResponseStatus.OK.state()) ;
+		response.setData(data);
+		return response ;  
 	}
 	
 }

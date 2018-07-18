@@ -45,6 +45,17 @@
 			<property name="enableSubPackages" value="false" />
 		</javaClientGenerator>
 		<!-- 指定数据库表 -->
-		<table schema="" tableName="user"></table>
+		<table schema="" tableName="user">
+		  <generatedKey column="id" identity="true" sqlStatement="MySQL" />
+		</table>
+		<table schema="" tableName="group_permission">
+		<generatedKey column="id" identity="true" sqlStatement="MySQL" />
+		</table>
+		<table schema="" tableName="module">
+		<generatedKey column="id" identity="true" sqlStatement="MySQL" />
+		</table>
+		<table schema="" tableName="group">
+		<generatedKey column="id" identity="true" sqlStatement="MySQL" />
+		</table>
 	</context>
 </generatorConfiguration>

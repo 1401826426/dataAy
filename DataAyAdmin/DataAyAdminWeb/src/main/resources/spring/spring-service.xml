@@ -1,0 +1,68 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans
+				http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+				http://www.springframework.org/schema/context
+				http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+	
+	<!-- <context:property-placeholder location="classpath:*.properties" file-encoding="UTF-8"/> -->
+	
+	<bean id = "propertyHolderConfigure" class="com.fei.manager.plugin.EncodePropertyHolderConfigure">
+	   <property name = "locations">
+	      <list>
+	         <value>classpath:*.properties</value>
+	      </list>
+	   </property>
+	   <property name = "fileEncoding" value="UTF-8"></property>
+	</bean>
+	
+	<context:component-scan base-package="com.fei.manager"/>
+	
+	<!-- <bean id = "AliyunTelephoneCommunicator" class="com.fei.common.util.communication.telephone.AliyunTelephoneCommunicator" init-method="ini">
+	  <property name="defaultConnectTimeout" value="${telephone.aliyun.defaultConnectTimeout}"/>
+	  <property name="defaultReadTimeout" value="${telephone.aliyun.defaultReadTimeout}"/>
+	  <property name="accessKeyId" value="${telephone.aliyun.accessKeyId}"/>
+	  <property name="accessKeySecret" value="${telephone.aliyun.accessKeySecret}"/>
+	  <property name="signName" value="${telephone.aliyun.signName}"/>
+	</bean>
+	
+	<bean id = "TemplateCoderProvider" class="com.fei.common.util.communication.telephone.TemplateCoderProvider">
+	<property name="templateCodes">
+	   <map>
+	      <entry key="sign" value="${telephone.aliyun.templateCode.sign}"/>
+	      <entry key="changePassword" value="${telephone.aliyun.templateCode.changePassword}"/>
+	      <entry key="subscriptionNotice" value="${telephone.aliyun.templateCode.subscriptionNotice}"/>
+	   </map>
+	</property>
+	</bean>
+	 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		init-method="init" destroy-method="close">
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.user}" />
+		<property name="password" value="${jdbc.password}" />
+
+		<property name="filters" value="stat" />
+
+		<property name="maxActive" value="20" />
+		<property name="initialSize" value="1" />
+		<property name="maxWait" value="60000" />
+		<property name="minIdle" value="1" />
+
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+
+		<property name="poolPreparedStatements" value="true" />
+		<property name="maxOpenPreparedStatements" value="20" />
+
+		<property name="asyncInit" value="true" />
+	</bean>
+	
+	
+
+</beans>

@@ -19,7 +19,7 @@
 
     <modules>
         <module>DataAyParent</module>
-        <module>DataAyManager</module>
+        <module>DataAyAdmin</module>
         <module>DataAyCrawlers</module>
         <module>DataAyCommon</module>
     </modules>

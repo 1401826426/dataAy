@@ -29,7 +29,46 @@ public class MailCommunicatorImpl extends AbstractCommunicator implements MailCo
 	
 	private Properties properties = new Properties();
 	
-	
+	public String getMailFrom() {
+		return mailFrom;
+	}
+
+	public void setMailFrom(String mailFrom) {
+		this.mailFrom = mailFrom;
+	}
+
+	public String getMailSmtpHost() {
+		return mailSmtpHost;
+	}
+
+	public void setMailSmtpHost(String mailSmtpHost) {
+		this.mailSmtpHost = mailSmtpHost;
+	}
+
+	public String getMailSmtpAuth() {
+		return mailSmtpAuth;
+	}
+
+	public void setMailSmtpAuth(String mailSmtpAuth) {
+		this.mailSmtpAuth = mailSmtpAuth;
+	}
+
+	public String getMailSmtpSslEnable() {
+		return mailSmtpSslEnable;
+	}
+
+	public void setMailSmtpSslEnable(String mailSmtpSslEnable) {
+		this.mailSmtpSslEnable = mailSmtpSslEnable;
+	}
+
+	public String getMailFromPassord() {
+		return mailFromPassord;
+	}
+
+	public void setMailFromPassord(String mailFromPassord) {
+		this.mailFromPassord = mailFromPassord;
+	}
+
 	@Override
 	public void ini() {
 		MailSSLSocketFactory sf=null;

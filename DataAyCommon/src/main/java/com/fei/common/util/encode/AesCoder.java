@@ -86,9 +86,9 @@ public class AesCoder extends AbstractPasswordCoder {
 	}
 
 	public static void main(String[] args) {
-		System.setProperty("aes.password", "123qwertysd");
+		System.setProperty("aes.password", "123qweqewdsgw");
 		AesCoder coder = new AesCoder();
-		String content = coder.encode("asdwqqkwe");
+		String content = coder.encode("cbpqfqwe1oevrchibad");
 		System.err.println(content);
 		System.err.println(coder.decode(content));
 	}

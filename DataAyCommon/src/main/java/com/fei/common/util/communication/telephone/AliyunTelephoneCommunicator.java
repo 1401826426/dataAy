@@ -35,7 +35,6 @@ public class AliyunTelephoneCommunicator extends AbstractCommunicator implements
 
 	private String signName = "";
 
-	private String templateCode;
 	
 
 	public IClientProfile getProfile() {
@@ -52,14 +51,6 @@ public class AliyunTelephoneCommunicator extends AbstractCommunicator implements
 
 	public void setSignName(String signName) {
 		this.signName = signName;
-	}
-
-	public String getTemplateCode() {
-		return templateCode;
-	}
-
-	public void setTemplateCode(String templateCode) {
-		this.templateCode = templateCode;
 	}
 
 	public long getDefaultConnectTimeout() {

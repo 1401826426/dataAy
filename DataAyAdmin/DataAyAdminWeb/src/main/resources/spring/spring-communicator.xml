@@ -1,0 +1,36 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans
+				http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+				http://www.springframework.org/schema/context
+				http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+	
+	<bean id = "aliyunTelephoneCommunicator" class="com.fei.common.util.communication.telephone.AliyunTelephoneCommunicator" init-method="ini">
+	  <property name="defaultConnectTimeout" value="${telephone.aliyun.defaultConnectTimeout}"/>
+	  <property name="defaultReadTimeout" value="${telephone.aliyun.defaultReadTimeout}"/>
+	  <property name="accessKeyId" value="${telephone.aliyun.accessKeyId}"/>
+	  <property name="accessKeySecret" value="${telephone.aliyun.accessKeySecret}"/>
+	  <property name="signName" value="${telephone.aliyun.signName}"/>
+	</bean>
+	
+	<bean id = "templateCoderProvider" class="com.fei.common.util.communication.telephone.TemplateCoderProvider">
+	<property name="templateCodes">
+	   <map>
+	      <entry key="sign" value="${telephone.aliyun.templateCode.sign}"/>
+	      <entry key="changePassword" value="${telephone.aliyun.templateCode.changePassword}"/>
+	      <entry key="subscriptionNotice" value="${telephone.aliyun.templateCode.subscriptionNotice}"/>
+	   </map>
+	</property>
+	</bean>
+		
+	<bean class="com.fei.common.util.communication.mail.MailCommunicatorImpl" init-method="ini">
+	   <property name="mailFrom" value="${mail.from}"/>
+	   <property name="mailSmtpHost" value="${mail.smtp.host}"/>
+	   <property name="mailSmtpAuth" value="${mail.smtp.host}"/>
+	   <property name="mailSmtpSslEnable" value="${mail.smtp.ssl.enable}"/>
+	   <property name="mailFromPassord" value="${mail.from.password}"/>
+	</bean>
+	
+
+</beans>
