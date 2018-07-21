@@ -23,7 +23,7 @@ public class UserController extends BaseController{
 	@Autowired
 	private UserService userService ; 
 	
-	@RequestMapping(value={"/login"},method=RequestMethod.PUT)
+	@RequestMapping(value={"/login"},method=RequestMethod.POST)
 	public Response login(@RequestBody User user,HttpSession session){
 		Response response = userService.login(user) ;
 		if(response.getStatus() == ResponseStatus.OK.state()){

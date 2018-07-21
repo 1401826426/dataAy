@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fei.admin.service.ITestService;
 import com.fei.common.Response;
+import com.fei.common.rpc.dto.TestDto;
 
 @Controller
 public class TestController {
@@ -16,11 +17,16 @@ public class TestController {
 	private ITestService testService ; 
 	
 	@RequestMapping(value = "/test" , produces = "application/json; charset=UTF-8")
-	@ResponseBody
+	@ResponseBody	
 	public Response test(){ 
 		return testService.test(); 
 	}
-	
+
+	@RequestMapping(value = "/testRpc" , produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public Response test(TestDto testDto){
+		return Response.ok(testDto) ; 
+ 	}
 	
 	
 }

@@ -7,7 +7,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>DataAyAdminWeb</artifactId>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<dependencies>
 
@@ -15,6 +15,11 @@
 			<groupId>com.fei</groupId>
 			<artifactId>DataAyAdminService</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fei</groupId>
+			<artifactId>netty-springmvc</artifactId>
 		</dependency>
 
 		<dependency>
@@ -57,7 +62,7 @@
 			<artifactId>spring-aop</artifactId>
 		</dependency>
 
-				<!-- test -->
+		<!-- test -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

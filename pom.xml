@@ -22,5 +22,6 @@
         <module>DataAyAdmin</module>
         <module>DataAyCrawlers</module>
         <module>DataAyCommon</module>
+        <module>DataAyBigData</module>
     </modules>
 </project>
