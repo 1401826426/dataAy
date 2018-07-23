@@ -1,8 +1,9 @@
 package com.fei.common.rpc.framework.sender.netty;
 
-import com.fei.common.rpc.framework.AbstractSender;
-import com.fei.common.rpc.framework.RpcByteRequest;
-import com.fei.common.rpc.framework.RpcByteResponse;
+import com.fei.common.rpc.framework.common.RpcByteRequest;
+import com.fei.common.rpc.framework.common.RpcByteResponse;
+import com.fei.common.rpc.framework.common.RpcManager;
+import com.fei.common.rpc.framework.sender.AbstractSender;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
@@ -34,8 +35,8 @@ public class NettySender extends AbstractSender{
 	public RpcByteResponse send(RpcByteRequest request) {
 		Channel channel = getChannel(request.getHost(),request.getPort());
 		channel.writeAndFlush(request).addListener(ChannelFutureListener.CLOSE);
-//		channel.
-		return null ; 
+		RpcByteResponse response = RpcManager.getInstance().getResponse(request) ; 
+		return response ; 
 	}
 
 	public static void main(String[] args) {
