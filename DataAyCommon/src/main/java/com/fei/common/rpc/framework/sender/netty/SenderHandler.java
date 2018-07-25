@@ -1,7 +1,5 @@
 package com.fei.common.rpc.framework.sender.netty;
 
-import java.net.URL;
-
 import com.fei.common.rpc.framework.common.RpcByteRequest;
 import com.fei.common.rpc.framework.common.RpcByteResponse;
 import com.fei.common.rpc.framework.common.RpcManager;
@@ -23,8 +21,8 @@ public class SenderHandler extends ChannelHandlerAdapter{
 	public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
 		if(msg instanceof RpcByteRequest){
 			RpcByteRequest rpcRequest = (RpcByteRequest)msg ;
-			URL url = rpcRequest.getUrl() ;  
-			FullHttpRequest request = new DefaultFullHttpRequest(HttpVersion.HTTP_1_1,HttpMethod.POST,url.getPath()) ; 
+//			URL url = rpcRequest.getUrl() ;  
+			FullHttpRequest request = new DefaultFullHttpRequest(HttpVersion.HTTP_1_1,HttpMethod.POST,rpcRequest.getPath()) ; 
 			request.headers().set(HttpHeaders.Names.CONTENT_TYPE,"application/json") ;
 			request.headers().set("requestId",rpcRequest.getRequestId()) ; 
 			byte[] bytes = rpcRequest.packBytes() ; 

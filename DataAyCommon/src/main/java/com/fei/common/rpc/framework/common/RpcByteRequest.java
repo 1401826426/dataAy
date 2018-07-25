@@ -1,11 +1,7 @@
 package com.fei.common.rpc.framework.common;
 
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class RpcByteRequest {
 	
@@ -13,44 +9,38 @@ public class RpcByteRequest {
 	
 	private int requestId ; 
 	
-	private URL url ; 
-	
-	private Object[] args ;
+	private byte[] content ; 
 
 	private Object lock = new Object() ; 
 	
-	public RpcByteRequest(String url, Object[] args) throws MalformedURLException {
+	private String path ; 
+	
+	public RpcByteRequest(String path, byte[] content) throws MalformedURLException {
 		super();
 		this.requestId = REQUEST_ID.getAndIncrement() ; 
-		this.url = new URL(url);
-		this.args = args;
+		this.path = path ; 
+		this.content = content ;
 	}
 
 	public int getRequestId() {
 		return requestId;
 	}
-
-	public URL getUrl(){
-		return this.url ; 
-	}
 	
 	public String getHost(){
-		return this.url.getHost() ; 
+		return "localhost" ;  
 	}
 	
 	public int getPort(){
-		return this.url.getPort() ; 
+		return 8080 ;  
+	}
+	
+	
+	public String getPath(){
+		return path ; 
 	}
 	
 	public byte[] packBytes(){
-		 ObjectMapper mapper = new ObjectMapper();
-		 try {
-			return mapper.writeValueAsBytes(args) ;
-		} catch (JsonProcessingException e) {
-			// TODO 打log
-			e.printStackTrace();
-		} 
-		return null ; 
+		 return content ; 
 	}
 	
 	public Object getLock(){

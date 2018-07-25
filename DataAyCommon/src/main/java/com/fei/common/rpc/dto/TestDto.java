@@ -20,7 +20,13 @@ public class TestDto {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	@Override
+	public String toString() {
+		return "TestDto [name=" + name + ", password=" + password + "]";
 	} 
+	
 	
 	
 }

@@ -3,38 +3,88 @@ package com.fei.common.rpc.framework.proxy;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
+import java.util.Arrays;
+import java.util.List;
 
+import com.fei.common.rpc.api.TestRpc.TestRpcAync;
 import com.fei.common.rpc.framework.RpcCallBack;
 import com.fei.common.rpc.framework.common.RpcByteRequest;
 import com.fei.common.rpc.framework.common.RpcByteResponse;
 import com.fei.common.rpc.framework.converter.Converter;
 import com.fei.common.rpc.framework.converter.ConverterException;
-import com.fei.common.rpc.framework.generator.RpcMethodUrlGenerator;
+import com.fei.common.rpc.framework.generator.UrlGenerator;
 import com.fei.common.rpc.framework.sender.RpcSenderCallBack;
 import com.fei.common.rpc.framework.sender.Sender;
 
-public class RpcInterfaceProxyHandler implements InvocationHandler{
-	
+public class RpcInterfaceProxyHandler implements InvocationHandler{	
+    
 	private Sender sender; 
 	
-	private RpcMethodUrlGenerator generator ;
+	private UrlGenerator generator ;
 	
 	private Converter converter ; 
 	
+	public RpcInterfaceProxyHandler(Sender sender, UrlGenerator generator, Converter converter) {
+		super();
+		this.sender = sender;
+		this.generator = generator;
+		this.converter = converter;
+	}
+
 	@Override
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-		String url = generator.generate(method) ; 
-		RpcByteRequest request = new RpcByteRequest(url, args) ; 
-		RpcSenderCallBack callBack = null ; 
+		boolean aync = asynMethod(method) ; 
+		if(aync){			
+			method = getRealMethod(method) ; 		
+		}
+		String url = generator.generate(method) ;
 		Type type = method.getGenericReturnType()  ;
+		byte[] bytes = generateArgBytes(args,method) ; 
+		RpcByteRequest request = new RpcByteRequest(url, bytes) ;
+		if(aync){
+			RpcSenderCallBack callBack = detectCallBack(type,args) ;
+			sender.sendAync(request, callBack);
+			return null ; 
+		}else{
+			RpcByteResponse response = sender.send(request) ;
+			if(response.getStatus() != 200){
+				throw new RuntimeException("没有正确返回"+"返回值为"+response.getStatus()) ; 
+			}
+			Object obj = converter.readValue(response.getData(), type) ;
+			return obj;
+		}
+	}
+
+	private byte[] generateArgBytes(Object[] args, Method method) throws ConverterException {
+		byte[] bytes = null ; 
+		int len = method.getParameterCount() ;  
+		if(len ==0){
+			bytes = new byte[0] ; 
+		}else if(len == 1){
+			bytes = converter.writeValue(args[0]) ; 
+		}else{
+			bytes = converter.writeValue(Arrays.copyOf(args,len)) ; 
+		}
+		return bytes ; 
+	}
+
+	//检测最后的一个参数是否有callBack
+	private RpcSenderCallBack detectCallBack(Type type, Object[] args) {
+		RpcSenderCallBack callBack = null ;
 		if(args.length > 0){
 			Object call = args[args.length-1] ; 
 			if(call != null && call instanceof RpcCallBack){
+				@SuppressWarnings("rawtypes")
 				RpcCallBack rpcCallBack = (RpcCallBack)call ; 
 				callBack = new RpcSenderCallBack() {
+					@SuppressWarnings("unchecked")
 					@Override
 					public void success(RpcByteResponse response) {
 						try {
+							if(response.getStatus() != 200){
+								rpcCallBack.error(new RuntimeException("没有正确返回,返回值为"+response.getStatus()));
+								return ; 
+							}
 							Object obj = converter.readValue(response.getData(), type) ;
 							rpcCallBack.success(obj);
 						} catch (ConverterException e) {
@@ -48,14 +98,60 @@ public class RpcInterfaceProxyHandler implements InvocationHandler{
 				};
 			}
 		}
-		if(callBack != null){
-			sender.sendAync(request, callBack);
-			return null ; 
-		}else{
-			RpcByteResponse response = sender.send(request) ; 
-			Object obj = converter.readValue(response.getData(), type) ;
-			return obj;
+		return callBack ; 
+	}
+     
+	//对于异步的方法调用,将其method转换为真正调用的method
+	private Method getRealMethod(Method method) throws NoSuchMethodException, SecurityException { 
+		Class<?>[] params = method.getParameterTypes() ; 
+		if(params.length > 0){
+			Class<?> clazz = params[params.length-1] ; 
+			if(clazz.isAssignableFrom(RpcCallBack.class)){
+				Class<?>[] paramsWithouLast = Arrays.copyOf(params,params.length-1) ; 
+				Class<?>[] interfaces = method.getDeclaringClass().getInterfaces() ; 
+				for(Class<?> intf:interfaces){
+					Method detectMethod = intf.getMethod(method.getName(),paramsWithouLast) ; 
+					if(detectMethod != null){
+						return detectMethod ; 
+					}
+				}
+			}
 		}
+		return method;
 	}
 	
+	private boolean asynMethod(Method method){
+		Class<?>[] params = method.getParameterTypes() ; 
+		if(params.length > 0){
+			Class<?> clazz = params[params.length-1] ; 
+			if(clazz.isAssignableFrom(RpcCallBack.class)){
+				return true ; 
+			}
+		}
+		return false ; 
+	}
+	
+	
+	public static void main(String[] args) throws NoSuchMethodException, SecurityException{
+		RpcInterfaceProxyHandler handler = new RpcInterfaceProxyHandler(null,null,null) ; 
+		Class<?> aRpcIntf = TestRpcAync.class ; 
+		Method method = aRpcIntf.getMethod("test",new Class[]{List.class,RpcCallBack.class}) ; 
+		Method realMethod = handler.getRealMethod(method) ;
+		System.err.println(realMethod.getName()+" "+realMethod.getDeclaringClass().getName());
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

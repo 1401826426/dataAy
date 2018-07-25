@@ -28,8 +28,7 @@ public class RpcByteResponse {
 		return requestId;
 	}
 
-	public void setRequestId(int parseInt) {
-		// TODO Auto-generated method stub
-		
+	public void setRequestId(int requestId) {
+		this.requestId = requestId ; 
 	} 
 }

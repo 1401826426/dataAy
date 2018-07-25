@@ -7,7 +7,6 @@ import com.fei.common.rpc.framework.sender.AbstractSender;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
-import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
@@ -34,7 +33,7 @@ public class NettySender extends AbstractSender{
 	@Override
 	public RpcByteResponse send(RpcByteRequest request) {
 		Channel channel = getChannel(request.getHost(),request.getPort());
-		channel.writeAndFlush(request).addListener(ChannelFutureListener.CLOSE);
+		channel.writeAndFlush(request);
 		RpcByteResponse response = RpcManager.getInstance().getResponse(request) ; 
 		return response ; 
 	}
