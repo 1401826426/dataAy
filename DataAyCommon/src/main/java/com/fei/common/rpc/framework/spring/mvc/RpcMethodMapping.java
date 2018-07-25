@@ -1,4 +1,4 @@
-package com.fei.common.rpc.framework.mvc;
+package com.fei.common.rpc.framework.spring.mvc;
 
 import java.lang.reflect.Method;
 

@@ -14,7 +14,7 @@ import com.fei.common.Response;
 import com.fei.common.rpc.dto.TestDto;
 
 @Controller
-@RequestMapping("/tt")
+@RequestMapping("/test")
 public class TestController {
 	
 	
@@ -44,4 +44,11 @@ public class TestController {
 	public  TestDto testOne(@RequestBody TestDto testDto){
 		return testDto ; 
 	}
+	
+	@RequestMapping(value = "/test/rpc/spring" , produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public  TestDto testSpring(){
+		return testService.testSpring() ; 
+	}
+	
 }

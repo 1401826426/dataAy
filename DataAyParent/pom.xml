@@ -26,17 +26,18 @@
 		<fei.util.version>0.0.1-SNAPSHOT</fei.util.version>
 		<fei.netty.springmvc.version>0.0.1-SNAPSHOT</fei.netty.springmvc.version>
 		<spring.data.hadoop.version>2.5.0.RELEASE</spring.data.hadoop.version>
+		<zookeeper.version>3.4.6</zookeeper.version>
 	</properties>
 
 	<dependencyManagement>
 		<dependencies>
-		    
-		    <dependency>
-		        <groupId>com.fei</groupId>
-		        <artifactId>netty-springmvc</artifactId>
-		        <version>${fei.netty.springmvc.version}</version>
-		    </dependency>
-		
+
+			<dependency>
+				<groupId>com.fei</groupId>
+				<artifactId>netty-springmvc</artifactId>
+				<version>${fei.netty.springmvc.version}</version>
+			</dependency>
+
 			<dependency>
 				<groupId>com.fei</groupId>
 				<artifactId>util</artifactId>
@@ -47,6 +48,13 @@
 				<groupId>com.aliyun</groupId>
 				<artifactId>aliyun-java-sdk-dysmsapi</artifactId>
 				<version>${aliyun.java.sdk.dysmsapi.version}</version>
+			</dependency>
+
+			<!-- https://mvnrepository.com/artifact/org.apache.zookeeper/zookeeper -->
+			<dependency>
+				<groupId>org.apache.zookeeper</groupId>
+				<artifactId>zookeeper</artifactId>
+				<version>${zookeeper.version}</version>
 			</dependency>
 
 
@@ -140,11 +148,11 @@
 				<version>${spring.version}</version>
 			</dependency>
 
-                <dependency>
-        <groupId>org.springframework.data</groupId>
-        <artifactId>spring-data-hadoop</artifactId>
-        <version>${spring.data.hadoop.version}</version>
-    </dependency>
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-hadoop</artifactId>
+				<version>${spring.data.hadoop.version}</version>
+			</dependency>
 
 
 			<!-- mybatis 組件 -->

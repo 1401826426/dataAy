@@ -50,14 +50,13 @@
 	   <mvc:mapping path = "/**" allowed-origins="*"/>
 	</mvc:cors>
 	
-	<bean id = "urlGenerator" 
-	class="com.fei.common.rpc.framework.generator.RpcMethodUrlGenerator"/>
+	<bean id = "urlGenerator" class="com.fei.common.rpc.framework.generator.RpcMethodUrlGenerator"/>
 	
-	<bean class="com.fei.common.rpc.framework.mvc.RpcMethodHandlerMapping">
+	<bean class="com.fei.common.rpc.framework.spring.mvc.RpcMethodHandlerMapping">
 	   <property name="urlGenerator" ref="urlGenerator"/>
 	</bean>
 	
-	<bean id = "myRequestResponseBodyProcessor" class="com.fei.common.rpc.framework.mvc.MyRRBProcessorFactory"/>
+	<bean id = "myRequestResponseBodyProcessor" class="com.fei.common.rpc.framework.spring.mvc.MyRRBProcessorFactory"/>
 		
 	<!-- <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		最大5MB
