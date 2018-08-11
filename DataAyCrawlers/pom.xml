@@ -10,8 +10,8 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>edu.uci.ics</groupId>
-			<artifactId>crawler4j</artifactId>
+			<groupId>com.geccocrawler</groupId>
+			<artifactId>gecco</artifactId>
 		</dependency>
 	</dependencies>
 
