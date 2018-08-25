@@ -1,0 +1,84 @@
+package com.fei.crawlers.pojo;
+
+public class Book {
+    private Integer id;
+
+    private String name;
+
+    private String author;
+
+    private String desc;
+
+    private String cats;
+
+    private String pic;
+
+    private String content;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author == null ? null : author.trim();
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc == null ? null : desc.trim();
+    }
+
+    public String getCats() {
+        return cats;
+    }
+
+    public void setCats(String cats) {
+        this.cats = cats == null ? null : cats.trim();
+    }
+
+    public String getPic() {
+        return pic;
+    }
+
+    public void setPic(String pic) {
+        this.pic = pic == null ? null : pic.trim();
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
+    }
+
+	//self_code_start
+    
+    public void readFrom(com.fei.crawlers.spider.novel.qidian.Book book) {
+		this.author = book.getAuthor() ; 
+		this.name = book.getName() ; 
+		this.desc = book.getDesc() ; 
+		this.pic = book.getPic() ; 
+	}
+	//self_code_end
+
+}
