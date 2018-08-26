@@ -21,7 +21,7 @@ import com.geccocrawler.gecco.spider.SpiderBean;
 import util.collection.CollectionUtils;
 
 @PipelineName("bookPipeline")
-@Component
+@Component("bookPipeline")
 public class BookPipeline implements Pipeline<SpiderBean>{
 	
 	@Autowired

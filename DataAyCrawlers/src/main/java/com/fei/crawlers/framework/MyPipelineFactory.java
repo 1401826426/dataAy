@@ -7,7 +7,6 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.geccocrawler.gecco.annotation.PipelineName;
@@ -20,15 +19,22 @@ import util.clazz.ClazzUtil;
 import util.collection.CollectionUtils;
 
 @Component
-public class PipeLineFactory implements PipelineFactory,InitializingBean{
+public class MyPipelineFactory implements PipelineFactory,InitializingBean{
 	
-	private static Logger logger = LoggerFactory.getLogger(PipeLineFactory.class) ; 
+	private static Logger logger = LoggerFactory.getLogger(MyPipelineFactory.class) ; 
 	
-	@Autowired
-	private List<Pipeline<? extends SpiderBean>> pipeLines ; 
+	private List<Pipeline<? extends SpiderBean>> pipelines ;
 	
 	private Map<String,Pipeline<? extends SpiderBean>> map  ;
 	
+	public List<Pipeline<? extends SpiderBean>> getPipelines() {
+		return pipelines;
+	}
+
+	public void setPipelines(List<Pipeline<? extends SpiderBean>> pipelines) {
+		this.pipelines = pipelines;
+	}
+
 	@Override
 	public Pipeline<? extends SpiderBean> getPipeline(String name) {
 		return map.get(name);
@@ -37,8 +43,8 @@ public class PipeLineFactory implements PipelineFactory,InitializingBean{
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		map = new HashMap<>() ; 
-		if(!CollectionUtils.isEmpty(pipeLines)){
-			for(Pipeline<? extends SpiderBean> pipeline:pipeLines){
+		if(!CollectionUtils.isEmpty(pipelines)){
+			for(Pipeline<? extends SpiderBean> pipeline:pipelines){
 				PipelineName pipelineName = ClazzUtil.getAnnotation(pipeline.getClass(),PipelineName.class) ;
 				if(pipelineName == null){
 					logger.warn("没有PipelineName的pipeLine:"+pipeline.getClass());

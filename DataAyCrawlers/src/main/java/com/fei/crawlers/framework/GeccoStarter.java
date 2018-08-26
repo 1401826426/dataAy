@@ -2,34 +2,34 @@ package com.fei.crawlers.framework;
 
 import java.io.IOException;
 
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Component;
 
 import com.geccocrawler.gecco.GeccoEngine;
+import com.geccocrawler.gecco.pipeline.PipelineFactory;
 
-public class GeccoStarter implements InitializingBean{
+@Component
+public class GeccoStarter implements InitializingBean,ApplicationContextAware{
 	
-	private PipeLineFactory pipelineFactory ; 
+	@Autowired
+	private PipelineFactory pipelineFactory ; 
 	
 	private Configuration conf ; 
 	
-	public GeccoStarter(Resource resource){
-		try {
-			conf = Configuration.readFrom(resource.getInputStream()) ;
-		} catch (IOException e) {
-			e.printStackTrace();
-		} 
-	}
+	private ApplicationContext applicationContext ; 
 	
-	
-	
-	public PipeLineFactory getPipelineFactory() {
+	public PipelineFactory getPipelineFactory() {
 		return pipelineFactory;
 	}
 
 
 
-	public void setPipelineFactory(PipeLineFactory pipelineFactory) {
+	public void setPipelineFactory(PipelineFactory pipelineFactory) {
 		this.pipelineFactory = pipelineFactory;
 	}
 
@@ -38,13 +38,26 @@ public class GeccoStarter implements InitializingBean{
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
+		Resource resource  = applicationContext.getResource("classpath:geccoConf.xml") ; 
+		try {
+			conf = Configuration.readFrom(resource.getInputStream()) ;
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
 		for(GeccoConf geccoConf:conf.getConfs()){
-			GeccoEngine.create(geccoConf.getClassPath())
-			           .start(geccoConf.getStartUrl())
-			           .interval(geccoConf.getInterval())
-			           .pipelineFactory(pipelineFactory)
-			           .start();  
+//			GeccoEngine.create(geccoConf.getClassPath())
+//			           .start(geccoConf.getStartUrl())
+//			           .interval(geccoConf.getInterval())
+//			           .pipelineFactory(pipelineFactory)
+//			           .start();  
 		}
+	}
+
+
+
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+		this.applicationContext = applicationContext ; 
 	}
 
 }
