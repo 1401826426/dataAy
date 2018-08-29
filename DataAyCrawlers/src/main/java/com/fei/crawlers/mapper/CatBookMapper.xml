@@ -208,10 +208,10 @@
     limit 0,1
   </select>
   
-  <insert id="insertCatBooks" parameterType="com.fei.crawlers.pojo.CatBook">
+  <insert id="insertCatBooks" parameterType="List">
   insert into cat_book(book_id,cat_id) values
   <foreach collection="catBooks" item="catBook" separator=",">
-  (catBook.bookId,catBook.catId)
+  (#{catBook.bookId},#{catBook.catId})
   </foreach>
   </insert>
   

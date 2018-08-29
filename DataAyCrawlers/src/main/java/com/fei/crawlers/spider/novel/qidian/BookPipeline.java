@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fei.crawlers.mapper.BookMapper;
 import com.fei.crawlers.mapper.CatBookMapper;
@@ -41,12 +42,13 @@ public class BookPipeline implements Pipeline<SpiderBean>{
 		}
 	}
 
+	@Transactional
 	private void saveBook(Book book) {
 		List<String> cats = book.getCats() ;
-		
 		List<CatBook> catBooks = new ArrayList<>() ;
 		com.fei.crawlers.pojo.Book pojoBook = new com.fei.crawlers.pojo.Book() ; 
-		pojoBook.readFrom(book) ; 
+		pojoBook.readFrom(book) ;
+		pojoBook.setContent(QidianBookUrlGenerator.generateBookDownLoadUrl(book.getBookId()));
 		bookMapper.insert(pojoBook) ; 
 		if(!CollectionUtils.isEmpty(cats)){
 			String name = cats.get(0) ; 
@@ -76,6 +78,7 @@ public class BookPipeline implements Pipeline<SpiderBean>{
 		if(cat == null){
 			cat = new Cat() ; 
 			cat.setName(name);
+			cat.setParentId(parentId);
 			catMapper.insert(cat) ; 
 		}
 		return cat ; 

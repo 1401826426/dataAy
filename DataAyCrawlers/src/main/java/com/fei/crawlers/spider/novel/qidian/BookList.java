@@ -8,7 +8,7 @@ import com.geccocrawler.gecco.annotation.Href;
 import com.geccocrawler.gecco.annotation.HtmlField;
 import com.geccocrawler.gecco.spider.HtmlBean;
 
-@Gecco(matchUrl="https://www.qidian.com/all?page={page}", pipelines="consolePipeline")
+@Gecco(matchUrl="https://www.qidian.com/all?page={page}")
 public class BookList implements HtmlBean{
 
 	private static final long serialVersionUID = 1L;

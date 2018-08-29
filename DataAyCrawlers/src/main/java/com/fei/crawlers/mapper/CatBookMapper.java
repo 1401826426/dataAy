@@ -5,7 +5,8 @@ import com.fei.crawlers.pojo.CatBookExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-public interface CatBookMapper {
+public interface CatBookMapper
+ {
     long countByExample(CatBookExample example);
 
     int deleteByExample(CatBookExample example);
@@ -31,7 +32,7 @@ public interface CatBookMapper {
 	CatBook selectOneByExample(CatBookExample example);
 
 	//self_code_start
-	void insertCatBooks(List<CatBook> catBooks);
+	void insertCatBooks(@Param("catBooks") List<CatBook> catBooks);
 	//self_code_end
 
 }

@@ -7,9 +7,7 @@ public class Book {
 
     private String author;
 
-    private String desc;
-
-    private String cats;
+    private String description;
 
     private String pic;
 
@@ -39,20 +37,12 @@ public class Book {
         this.author = author == null ? null : author.trim();
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc == null ? null : desc.trim();
-    }
-
-    public String getCats() {
-        return cats;
-    }
-
-    public void setCats(String cats) {
-        this.cats = cats == null ? null : cats.trim();
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
     }
 
     public String getPic() {
@@ -71,12 +61,13 @@ public class Book {
         this.content = content == null ? null : content.trim();
     }
 
+
 	//self_code_start
     
     public void readFrom(com.fei.crawlers.spider.novel.qidian.Book book) {
 		this.author = book.getAuthor() ; 
 		this.name = book.getName() ; 
-		this.desc = book.getDesc() ; 
+		this.description = book.getDesc() ; 
 		this.pic = book.getPic() ; 
 	}
 	//self_code_end

@@ -10,7 +10,7 @@ import com.geccocrawler.gecco.annotation.RequestParameter;
 import com.geccocrawler.gecco.annotation.Text;
 import com.geccocrawler.gecco.spider.HtmlBean;
 
-@Gecco(matchUrl="https://book.qidian.com/info/{bookId}", pipelines="bookPipeline")
+@Gecco(matchUrl="https://book.qidian.com/info/{bookId}",pipelines="bookPipeline")
 public class Book implements HtmlBean {
 
 	private static final long serialVersionUID = 1L;
@@ -25,8 +25,8 @@ public class Book implements HtmlBean {
     @Text
     @HtmlField(cssPath=".book-detail-wrap .book-information .book-info h1 span a")
     private String author ;//作者
-
-    @Image(download="D://test")
+    
+    @Image
     @HtmlField(cssPath=".book-detail-wrap .book-information .book-img a img")
     private String pic;//书面图片
     
@@ -103,7 +103,7 @@ public class Book implements HtmlBean {
         GeccoEngine.create()
                 .classpath("com.fei.crawlers.novel.qidian")
                 .start("https://book.qidian.com/info/1004608738")
-                .thread(1)
+                .thread(10)
                 .interval(2000)
                 .debug(true)
                 .loop(false)

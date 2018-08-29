@@ -45,11 +45,11 @@ public class GeccoStarter implements InitializingBean,ApplicationContextAware{
 			e.printStackTrace();
 		} 
 		for(GeccoConf geccoConf:conf.getConfs()){
-//			GeccoEngine.create(geccoConf.getClassPath())
-//			           .start(geccoConf.getStartUrl())
-//			           .interval(geccoConf.getInterval())
-//			           .pipelineFactory(pipelineFactory)
-//			           .start();  
+			GeccoEngine.create(geccoConf.getClassPath(),pipelineFactory)
+			           .start(geccoConf.getStartUrl())
+			           .interval(geccoConf.getInterval())
+			           .debug(false)
+			           .start();  
 		}
 	}
 

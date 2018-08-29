@@ -18,7 +18,7 @@
     <!-- 在configuration中进行了注册mapperType的操作时MapperAnnotationBuilder会扫描当前mapper接口对应的相同路径下的相同名的xml文件 -->
     <!-- 并将对应的MapperStatement中,从而能够自动注册mappers \ -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.fei.admin.mapper" />
+		<property name="basePackage" value="com.fei.crawlers.mapper" />
 	</bean>
 
 	

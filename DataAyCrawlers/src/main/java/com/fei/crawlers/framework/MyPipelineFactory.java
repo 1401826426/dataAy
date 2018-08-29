@@ -7,6 +7,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.geccocrawler.gecco.annotation.PipelineName;
@@ -23,6 +24,7 @@ public class MyPipelineFactory implements PipelineFactory,InitializingBean{
 	
 	private static Logger logger = LoggerFactory.getLogger(MyPipelineFactory.class) ; 
 	
+	@Autowired
 	private List<Pipeline<? extends SpiderBean>> pipelines ;
 	
 	private Map<String,Pipeline<? extends SpiderBean>> map  ;

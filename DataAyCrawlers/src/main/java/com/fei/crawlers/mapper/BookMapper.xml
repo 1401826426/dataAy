@@ -6,8 +6,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="author" jdbcType="VARCHAR" property="author" />
-    <result column="desc" jdbcType="VARCHAR" property="desc" />
-    <result column="cats" jdbcType="VARCHAR" property="cats" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="pic" jdbcType="VARCHAR" property="pic" />
     <result column="content" jdbcType="VARCHAR" property="content" />
   </resultMap>
@@ -73,7 +72,7 @@
   </sql>
   <sql id="Base_Column_List">
     <!-- @ibatorgenerated -->
-    id, name, author, desc, cats, pic, content
+    id, name, author, description, pic, content
   </sql>
   <select id="selectByExample" parameterType="com.fei.crawlers.pojo.BookExample" resultMap="BaseResultMap">
     <!-- @ibatorgenerated -->
@@ -114,10 +113,10 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into book (name, author, desc, 
-      cats, pic, content)
-    values (#{name,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR}, 
-      #{cats,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR})
+    insert into book (name, author, description, 
+      pic, content)
+    values (#{name,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{pic,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.fei.crawlers.pojo.Book">
     <!-- @ibatorgenerated -->
@@ -132,11 +131,8 @@
       <if test="author != null">
         author,
       </if>
-      <if test="desc != null">
-        desc,
-      </if>
-      <if test="cats != null">
-        cats,
+      <if test="description != null">
+        description,
       </if>
       <if test="pic != null">
         pic,
@@ -152,11 +148,8 @@
       <if test="author != null">
         #{author,jdbcType=VARCHAR},
       </if>
-      <if test="desc != null">
-        #{desc,jdbcType=VARCHAR},
-      </if>
-      <if test="cats != null">
-        #{cats,jdbcType=VARCHAR},
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
       </if>
       <if test="pic != null">
         #{pic,jdbcType=VARCHAR},
@@ -186,11 +179,8 @@
       <if test="record.author != null">
         author = #{record.author,jdbcType=VARCHAR},
       </if>
-      <if test="record.desc != null">
-        desc = #{record.desc,jdbcType=VARCHAR},
-      </if>
-      <if test="record.cats != null">
-        cats = #{record.cats,jdbcType=VARCHAR},
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
       </if>
       <if test="record.pic != null">
         pic = #{record.pic,jdbcType=VARCHAR},
@@ -209,8 +199,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
       author = #{record.author,jdbcType=VARCHAR},
-      desc = #{record.desc,jdbcType=VARCHAR},
-      cats = #{record.cats,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
       pic = #{record.pic,jdbcType=VARCHAR},
       content = #{record.content,jdbcType=VARCHAR}
     <if test="_parameter != null">
@@ -227,11 +216,8 @@
       <if test="author != null">
         author = #{author,jdbcType=VARCHAR},
       </if>
-      <if test="desc != null">
-        desc = #{desc,jdbcType=VARCHAR},
-      </if>
-      <if test="cats != null">
-        cats = #{cats,jdbcType=VARCHAR},
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
       </if>
       <if test="pic != null">
         pic = #{pic,jdbcType=VARCHAR},
@@ -247,8 +233,7 @@
     update book
     set name = #{name,jdbcType=VARCHAR},
       author = #{author,jdbcType=VARCHAR},
-      desc = #{desc,jdbcType=VARCHAR},
-      cats = #{cats,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
       pic = #{pic,jdbcType=VARCHAR},
       content = #{content,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
