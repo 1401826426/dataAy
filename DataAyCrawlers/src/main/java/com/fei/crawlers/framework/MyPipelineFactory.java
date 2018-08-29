@@ -1,14 +1,11 @@
 package com.fei.crawlers.framework;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 
 import com.geccocrawler.gecco.annotation.PipelineName;
 import com.geccocrawler.gecco.pipeline.ConsolePipeline;
@@ -16,48 +13,46 @@ import com.geccocrawler.gecco.pipeline.Pipeline;
 import com.geccocrawler.gecco.pipeline.PipelineFactory;
 import com.geccocrawler.gecco.spider.SpiderBean;
 
-import util.clazz.ClazzUtil;
-import util.collection.CollectionUtils;
-
-@Component
-public class MyPipelineFactory implements PipelineFactory,InitializingBean{
+public class MyPipelineFactory implements PipelineFactory,ApplicationContextAware{
 	
-	private static Logger logger = LoggerFactory.getLogger(MyPipelineFactory.class) ; 
+	private ApplicationContext applicationContext ; 
 	
-	@Autowired
-	private List<Pipeline<? extends SpiderBean>> pipelines ;
+	private Map<String,Pipeline<? extends SpiderBean>> map ; 
 	
-	private Map<String,Pipeline<? extends SpiderBean>> map  ;
-	
-	public List<Pipeline<? extends SpiderBean>> getPipelines() {
-		return pipelines;
-	}
-
-	public void setPipelines(List<Pipeline<? extends SpiderBean>> pipelines) {
-		this.pipelines = pipelines;
-	}
-
 	@Override
 	public Pipeline<? extends SpiderBean> getPipeline(String name) {
+		if(map == null){
+			synchronized (this) {
+				if(map == null){					
+					refreshMap(); 
+				}
+			}
+		}
 		return map.get(name);
 	}
 
-	@Override
-	public void afterPropertiesSet() throws Exception {
+	@SuppressWarnings("unchecked")
+	private void refreshMap() {
 		map = new HashMap<>() ; 
-		if(!CollectionUtils.isEmpty(pipelines)){
-			for(Pipeline<? extends SpiderBean> pipeline:pipelines){
-				PipelineName pipelineName = ClazzUtil.getAnnotation(pipeline.getClass(),PipelineName.class) ;
-				if(pipelineName == null){
-					logger.warn("没有PipelineName的pipeLine:"+pipeline.getClass());
-				}
-				String name = pipelineName.value() ; 
-				map.put(name, pipeline) ; 
+		String[] beanNames = applicationContext.getBeanNamesForType(Pipeline.class) ; 
+		if(beanNames != null){
+			for(String name:beanNames){
+				Pipeline<? extends SpiderBean> pipeline = (Pipeline<? extends SpiderBean>)applicationContext.getBean(name) ; 
+				PipelineName pipelineName = pipeline.getClass().getAnnotation(PipelineName.class) ;
+				String pipelineAnnoName = pipelineName.value() ; 
+				map.put(pipelineAnnoName, pipeline) ; 
 			}
 		}
-		if(map.containsKey("consolePipeline")){
-			map.put("consolePipeline",new ConsolePipeline()) ;
+		if(!map.containsKey("consolePipeline")){
+			map.put("consolePipeline",new ConsolePipeline()) ; 
 		}
 	}
 
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+		this.applicationContext = applicationContext ; 
+	}
+
+
 }
+

@@ -2,26 +2,24 @@ package com.fei.crawlers.framework;
 
 import java.io.IOException;
 
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.io.Resource;
-import org.springframework.stereotype.Component;
 
 import com.geccocrawler.gecco.GeccoEngine;
 import com.geccocrawler.gecco.pipeline.PipelineFactory;
 
-@Component
-public class GeccoStarter implements InitializingBean,ApplicationContextAware{
+import util.data.DataParser;
+import util.data.DataParserBuilder;
+
+public class GeccoStarter{ 
 	
-	@Autowired
+	private Configuration conf ;
+
 	private PipelineFactory pipelineFactory ; 
-	
-	private Configuration conf ; 
-	
-	private ApplicationContext applicationContext ; 
+
+	public GeccoStarter(Resource resource) throws IOException{
+		DataParser dataParser = DataParserBuilder.getInstance().getXmlDataParser() ;
+		this.conf = dataParser.parse(Configuration.class, resource.getInputStream()) ; 
+	}	
 	
 	public PipelineFactory getPipelineFactory() {
 		return pipelineFactory;
@@ -35,15 +33,7 @@ public class GeccoStarter implements InitializingBean,ApplicationContextAware{
 
 
 
-
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		Resource resource  = applicationContext.getResource("classpath:geccoConf.xml") ; 
-		try {
-			conf = Configuration.readFrom(resource.getInputStream()) ;
-		} catch (IOException e) {
-			e.printStackTrace();
-		} 
+	public void start() throws Exception { 
 		for(GeccoConf geccoConf:conf.getConfs()){
 			GeccoEngine.create(geccoConf.getClassPath(),pipelineFactory)
 			           .start(geccoConf.getStartUrl())
@@ -52,12 +42,4 @@ public class GeccoStarter implements InitializingBean,ApplicationContextAware{
 			           .start();  
 		}
 	}
-
-
-
-	@Override
-	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		this.applicationContext = applicationContext ; 
-	}
-
 }

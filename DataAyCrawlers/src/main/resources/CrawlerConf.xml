@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bean>
+    <list name="confs">
+        <bean>
+            <property name="name">qidain</property>
+            <property name="classPath">com.fei.crawlers.spider.novel.qidian</property>
+            <property name="startUrl">https://www.qidian.com/all?page=1</property>
+            <property name="interval">2000</property>
+            <property name="debug">true</property>
+            <property name="retry">false</property>
+        </bean>
+    </list>
+</bean>
