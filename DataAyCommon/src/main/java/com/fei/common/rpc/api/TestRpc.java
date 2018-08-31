@@ -5,9 +5,9 @@ import java.util.List;
 import com.fei.common.rpc.dto.TestDto;
 import com.fei.common.rpc.framework.RpcCallBack;
 import com.fei.common.rpc.framework.RpcInterface;
-import com.fei.common.rpc.framework.ServiceGroupEnum;
+import com.fei.common.zookeeper.server.ServerGroupEnum;
 
-@RpcInterface(ServiceGroupEnum.ADMIN)
+@RpcInterface(ServerGroupEnum.ADMIN)
 public interface TestRpc {
 	
 	public List<TestDto> test(List<TestDto> testDto) ;

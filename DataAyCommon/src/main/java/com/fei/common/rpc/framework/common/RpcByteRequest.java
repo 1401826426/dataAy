@@ -15,11 +15,17 @@ public class RpcByteRequest {
 	
 	private String path ; 
 	
-	public RpcByteRequest(String path, byte[] content) throws MalformedURLException {
+	private String host ; 
+	
+	private int port ; 
+	
+	public RpcByteRequest(String host,int port ,String path, byte[] content) throws MalformedURLException {
 		super();
 		this.requestId = REQUEST_ID.getAndIncrement() ; 
 		this.path = path ; 
 		this.content = content ;
+		this.host = host ; 
+		this.port = port ; 
 	}
 
 	public int getRequestId() {
@@ -27,11 +33,11 @@ public class RpcByteRequest {
 	}
 	
 	public String getHost(){
-		return "localhost" ;  
+		return host;  
 	}
 	
 	public int getPort(){
-		return 8080 ;  
+		return port ;  
 	}
 	
 	

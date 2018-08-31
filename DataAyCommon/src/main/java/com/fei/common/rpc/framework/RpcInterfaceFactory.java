@@ -15,6 +15,8 @@ import com.fei.common.rpc.framework.generator.UrlGenerator;
 import com.fei.common.rpc.framework.proxy.RpcInterfaceProxyHandler;
 import com.fei.common.rpc.framework.sender.Sender;
 import com.fei.common.rpc.framework.sender.netty.NettySender;
+import com.fei.common.zookeeper.server.Server;
+import com.fei.common.zookeeper.server.ServerGroupEnum;
 
 public class RpcInterfaceFactory {
 	
@@ -51,18 +53,18 @@ public class RpcInterfaceFactory {
 	} 
 	
 	@SuppressWarnings("unchecked")
-	public <T> T getRpcInterface(Class<T> clazz){
+	public <T> T getRpcInterface(Class<T> clazz,Server server){
 		if(clazz == null || !(clazz.isInterface())){
 			throw new RuntimeException("clazz为空或者不是接口") ; 
 		}
-		iniHandler() ; 
+		iniHandler(server) ; 
 		return (T)Proxy.newProxyInstance(clazz.getClassLoader(), new Class<?>[]{clazz}, this.handler) ;  
 	}
 
-	private void iniHandler() {
+	private void iniHandler(Server server) {
 		if(this.handler == null){
 			checkAllIni();  
-			this.handler = new RpcInterfaceProxyHandler(sender,urlGenerator,converter) ;
+			this.handler = new RpcInterfaceProxyHandler(sender,urlGenerator,converter,server) ;
 		}
 	}
 
@@ -81,8 +83,9 @@ public class RpcInterfaceFactory {
 	}
 	
 	public static void main(String[] args) {
-		RpcInterfaceFactory factory = new RpcInterfaceFactory(); 
-		TestRpc testRpc = factory.getRpcInterface(TestRpc.class) ;
+		RpcInterfaceFactory factory = new RpcInterfaceFactory();
+		Server server = new Server(ServerGroupEnum.ADMIN,"localhost",8080,1);
+		TestRpc testRpc = factory.getRpcInterface(TestRpc.class,server) ;
 		TestDto testDto = new TestDto() ; 
 		testDto.setName("name");
 		testDto.setPassword("password");
@@ -91,7 +94,7 @@ public class RpcInterfaceFactory {
 		System.err.print(testRpc.test(list)) ;
 		System.err.println(testRpc.testOne(testDto));
 		
-		TestRpcAync testRpcAync = factory.getRpcInterface(TestRpcAync.class) ; 
+		TestRpcAync testRpcAync = factory.getRpcInterface(TestRpcAync.class,server) ; 
 		testRpcAync.test(list, new RpcCallBack<List<TestDto>>() {
 			
 			@Override

@@ -4,9 +4,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.Arrays;
-import java.util.List;
 
-import com.fei.common.rpc.api.TestRpc.TestRpcAync;
 import com.fei.common.rpc.framework.RpcCallBack;
 import com.fei.common.rpc.framework.common.RpcByteRequest;
 import com.fei.common.rpc.framework.common.RpcByteResponse;
@@ -15,6 +13,7 @@ import com.fei.common.rpc.framework.converter.ConverterException;
 import com.fei.common.rpc.framework.generator.UrlGenerator;
 import com.fei.common.rpc.framework.sender.RpcSenderCallBack;
 import com.fei.common.rpc.framework.sender.Sender;
+import com.fei.common.zookeeper.server.Server;
 
 public class RpcInterfaceProxyHandler implements InvocationHandler{	
     
@@ -24,11 +23,14 @@ public class RpcInterfaceProxyHandler implements InvocationHandler{
 	
 	private Converter converter ; 
 	
-	public RpcInterfaceProxyHandler(Sender sender, UrlGenerator generator, Converter converter) {
+	private Server server ; 
+	
+	public RpcInterfaceProxyHandler(Sender sender, UrlGenerator generator, Converter converter,Server server) {
 		super();
 		this.sender = sender;
 		this.generator = generator;
 		this.converter = converter;
+		this.server = server ; 
 	}
 
 	@Override
@@ -40,7 +42,7 @@ public class RpcInterfaceProxyHandler implements InvocationHandler{
 		String url = generator.generate(method) ;
 		Type type = method.getGenericReturnType()  ;
 		byte[] bytes = generateArgBytes(args,method) ; 
-		RpcByteRequest request = new RpcByteRequest(url, bytes) ;
+		RpcByteRequest request = new RpcByteRequest(server.getHost(),server.getPort(),url, bytes) ;
 		if(aync){
 			RpcSenderCallBack callBack = detectCallBack(type,args) ;
 			sender.sendAync(request, callBack);
@@ -130,15 +132,7 @@ public class RpcInterfaceProxyHandler implements InvocationHandler{
 		}
 		return false ; 
 	}
-	
-	
-	public static void main(String[] args) throws NoSuchMethodException, SecurityException{
-		RpcInterfaceProxyHandler handler = new RpcInterfaceProxyHandler(null,null,null) ; 
-		Class<?> aRpcIntf = TestRpcAync.class ; 
-		Method method = aRpcIntf.getMethod("test",new Class[]{List.class,RpcCallBack.class}) ; 
-		Method realMethod = handler.getRealMethod(method) ;
-		System.err.println(realMethod.getName()+" "+realMethod.getDeclaringClass().getName());
-	}
+
 }
 
 

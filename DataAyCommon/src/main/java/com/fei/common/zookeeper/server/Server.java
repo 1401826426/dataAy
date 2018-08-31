@@ -8,6 +8,22 @@ public class Server {
 	
 	private ServerGroupEnum group ;
 
+	private int id ; 
+	
+	private String serverKey ; 
+	
+	public Server(ServerGroupEnum group, String host, int port, int id) {
+		this.group = group ; 
+		this.host = host ; 
+		this.port = port ; 
+		this.id = id  ; 
+		this.serverKey = ServerKeyGenerator.generate(this) ; 
+	}
+
+	public Server() {
+		super();
+	}
+
 	public String getHost() {
 		return host;
 	}
@@ -30,7 +46,30 @@ public class Server {
 
 	public void setGroup(ServerGroupEnum group) {
 		this.group = group;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getServerKey() {
+		return serverKey;
+	}
+
+	public void setServerKey(String serverKey) {
+		this.serverKey = serverKey;
+	}
+
+	@Override
+	public String toString() {
+		return "Server [host=" + host + ", port=" + port + ", group=" + group + ", id=" + id + ", serverKey="
+				+ serverKey + "]";
 	}  
+	
 	
 	
 }

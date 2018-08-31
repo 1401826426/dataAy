@@ -4,15 +4,21 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
+import org.apache.zookeeper.CreateMode;
+import org.apache.zookeeper.ZooDefs.Ids;
 
 import com.fei.common.rpc.framework.converter.Converter;
 import com.fei.common.rpc.framework.converter.ConverterException;
+import com.fei.common.rpc.framework.converter.fackson.FackJsonConverter;
 import com.fei.common.zookeeper.server.Server;
 import com.fei.common.zookeeper.server.ServerGroupEnum;
 
 import util.collection.HashMapArrayListMultiMap;
 
-public class AbstractZookeeperServerCenter extends AbstractZookeeperCenter {
+public abstract class AbstractZookeeperServerCenter extends AbstractZookeeperCenter {
 
 	private HashMapArrayListMultiMap<ServerGroupEnum, Server> servers;
 
@@ -22,47 +28,92 @@ public class AbstractZookeeperServerCenter extends AbstractZookeeperCenter {
 
 	private Converter converter ; 
 	
+	private ReadWriteLock lock = new ReentrantReadWriteLock() ;
+	
+	public void ini(){
+		super.ini(); 
+		if(this.converter == null){
+			this.converter = new FackJsonConverter() ; 
+		}
+		if(this.parentPath == null){
+			this.parentPath = "/fei/dataAy" ; 
+		}
+		Server server = loadServer() ; 
+		registerSelf(server);
+		refresh();
+	}
+	
+	protected abstract  Server loadServer()  ; 
+
 	public void registerSelf(Server server) {
+		try{			
+			byte[] bytes = converter.writeValue(server) ; 
+			createDataRecursive(parentPath+"/"+server.getGroup().str()+"/"+server.getServerKey(),bytes, Ids.OPEN_ACL_UNSAFE,CreateMode.EPHEMERAL);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 
 	}
 
 	@Override
 	protected void refresh() {
-		servers = new HashMapArrayListMultiMap<>();
-		serverMap = new HashMap<>();
-		registerServers();
+		try{
+			lock.writeLock().lock();  
+			servers = new HashMapArrayListMultiMap<>();
+			serverMap = new HashMap<>();
+			loadServers();			
+		}finally {
+			lock.writeLock().unlock();
+		}
 	}
 
-	private void registerServers() {
+	private void loadServers() {
 		List<String> childs = getChild(parentPath);
 		if(childs != null){
 			for (String child : childs) {
-				registerGroupServers(child);
+				loadGroupServers(parentPath+"/"+child);
 			}
 		}
 	}
 
-	@SuppressWarnings("unused")
-	private void registerGroupServers(String child) {
-		List<String> serverPaths = getChild(child);
+	private void loadGroupServers(String path) {
+		List<String> serverPaths = getChild(path);
 		for(String serverPath:serverPaths){
-			byte[] bytes = getData(serverPath) ; 
+			byte[] bytes = getData(path+"/"+serverPath) ; 
 			try {
 				Server server = (Server) converter.readValue(bytes, Server.class) ;
-				//TODO
+				serverMap.put(server.getServerKey(),server) ; 
+				servers.putOne(server.getGroup(),server) ; 
 			} catch (ConverterException e) {
 				e.printStackTrace();
 			} 
 		}
 	}
 
+	public Converter getConverter() {
+		return converter;
+	}
+
+	public void setConverter(Converter converter) {
+		this.converter = converter;
+	}
 
 	public Collection<Server> getServerByGroupType(ServerGroupEnum serverGroup) {
-		return servers.get(serverGroup);
+		try{
+			lock.readLock().lock();  
+			return servers.get(serverGroup);
+		}finally{
+			lock.readLock().lock();  
+		}
 	}
 
 	public Server getServerByKey(String serverKey) {
-		return serverMap.get(serverKey);
+		try{
+			lock.readLock().lock();  
+			return serverMap.get(serverKey);
+		}finally{
+			lock.readLock().unlock();  
+		}
 	}
 
 }

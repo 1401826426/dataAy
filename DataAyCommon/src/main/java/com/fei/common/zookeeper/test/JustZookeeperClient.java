@@ -7,7 +7,10 @@ import org.apache.zookeeper.ZooKeeperMain;
 
 public class JustZookeeperClient {
 	
-	public static void main(String[] args) throws KeeperException, IOException, InterruptedException { 
+	public static void main(String[] args) throws KeeperException, IOException, InterruptedException {
+		args = new String[]{
+				"-server","localhost:2181"
+		};
 		ZooKeeperMain.main(args);
 	}
 	

@@ -41,7 +41,7 @@ public class JustClientTest {
 //		Converter converter = new FackJsonConverter() ; 
 //		byte[] bytes = converter.writeValue(test); 
 //		zooKeeper.create("/test/test",bytes, Ids.OPEN_ACL_UNSAFE,CreateMode.PERSISTENT) ; 
-		zooKeeper.getData("/test/test/test", false, new Stat()) ;
+//		zooKeeper.getData("/test/test/test", false, new Stat()) ;
 		
 //		zooKeeper.getChildren("/test/test",, cb, ctx);
 	}
