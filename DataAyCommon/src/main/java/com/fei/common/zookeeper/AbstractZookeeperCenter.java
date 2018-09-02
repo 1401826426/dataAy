@@ -10,36 +10,46 @@ import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.data.ACL;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import util.str.StringUtils;
 
-public abstract class AbstractZookeeperCenter {
+public abstract class AbstractZookeeperCenter implements Watcher{
 	
 	private ZooKeeper zk ; 
 	
-	//TODO
-	//watcher 无回调问题
-	private class ZookeeperCenterWatcher implements Watcher{
-
-		@Override
-		public void process(WatchedEvent event) {
-//			EventType type = event.getType() ;  
-			refresh() ; 
-//			if(EventType.NodeCreated == type || EventType.NodeChildrenChanged == type
-//					|| EventType.NodeDeleted == type){
-//				
-//			}
-		}
-	}
+	protected static Logger logger = LoggerFactory.getLogger(AbstractZookeeperCenter.class) ; 
+//	//TODO
+//	//watcher 无回调问题
+//	private class ZookeeperCenterWatcher implements Watcher{
+//
+//		@Override
+//		public void process(WatchedEvent event) {
+////			EventType type = event.getType() ;  
+//			refresh() ; 
+////			if(EventType.NodeCreated == type || EventType.NodeChildrenChanged == type
+////					|| EventType.NodeDeleted == type){
+////				
+////			}
+//		}
+//	}
 		
 	protected abstract void refresh() ; 
 	
 	protected abstract String loadConnectString()  ; 
 	
+	
+	
+	@Override
+	public void process(WatchedEvent event) {
+		refresh() ;
+	}
+
 	public void ini(){
 		String connectString = loadConnectString() ; 
 		try {
-			zk = new ZooKeeper(connectString,2000,new ZookeeperCenterWatcher()) ;
+			zk = new ZooKeeper(connectString,2000,this) ;
 		} catch (IOException e) {
 			throw new RuntimeException(e) ; 
 		} 
@@ -83,7 +93,7 @@ public abstract class AbstractZookeeperCenter {
 	public List<String> getChild(String path){
 		List<String> list = null;
 		try {
-			list = zk.getChildren(path, false);
+			list = zk.getChildren(path, true);
 		} catch (KeeperException | InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

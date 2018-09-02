@@ -13,7 +13,7 @@ public class EncodePropertyHolderConfigure extends PropertyPlaceholderConfigurer
 	private static Set<String> keys = new HashSet<String>() ; 
 	
 	static{
-		keys.add("jdbc.password") ; 
+//		keys.add("jdbc.password") ; 
 	}
 	
 	

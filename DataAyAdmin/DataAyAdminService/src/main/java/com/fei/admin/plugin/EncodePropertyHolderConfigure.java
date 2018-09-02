@@ -13,12 +13,12 @@ public class EncodePropertyHolderConfigure extends PropertyPlaceholderConfigurer
 	private static Set<String> keys = new HashSet<String>() ; 
 	
 	static{
-		keys.add("jdbc.password") ; 
-		keys.add("telephone.aliyun.accessKeyId") ; 
-		keys.add("telephone.aliyun.accessKeySecret") ; 
-		keys.add("telephone.aliyun.signName") ;
-		keys.add("mail.from") ;
-		keys.add("mail.from.password") ;
+//		keys.add("jdbc.password") ; 
+//		keys.add("telephone.aliyun.accessKeyId") ; 
+//		keys.add("telephone.aliyun.accessKeySecret") ; 
+//		keys.add("telephone.aliyun.signName") ;
+//		keys.add("mail.from") ;
+//		keys.add("mail.from.password") ;
 	}
 	
 	

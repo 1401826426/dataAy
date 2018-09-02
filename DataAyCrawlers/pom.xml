@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
@@ -9,16 +10,18 @@
 	<artifactId>DataAyCrawlers</artifactId>
 
 	<dependencies>
+
+		<dependency>
+			<groupId>com.fei</groupId>
+			<artifactId>DataAyCommon</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
 		<dependency>
 			<groupId>com.geccocrawler</groupId>
 			<artifactId>gecco</artifactId>
 		</dependency>
-		
-		<dependency>
-			<groupId>com.fei</groupId>
-			<artifactId>DataAyAdminPojo</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -65,20 +68,10 @@
 			<artifactId>spring-tx</artifactId>
 		</dependency>
 
-		<!-- <dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-core</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-web</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-config</artifactId>
-		</dependency> -->
+		<!-- <dependency> <groupId>org.springframework.security</groupId> <artifactId>spring-security-core</artifactId> 
+			</dependency> <dependency> <groupId>org.springframework.security</groupId> 
+			<artifactId>spring-security-web</artifactId> </dependency> <dependency> <groupId>org.springframework.security</groupId> 
+			<artifactId>spring-security-config</artifactId> </dependency> -->
 
 		<!-- mybatis.spring組件 -->
 		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
@@ -86,17 +79,23 @@
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis-spring</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.fei</groupId>
 			<artifactId>util</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.fei</groupId>
 			<artifactId>netty-springmvc</artifactId>
-		</dependency>		
-		
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+
+
 	</dependencies>
 
 </project>

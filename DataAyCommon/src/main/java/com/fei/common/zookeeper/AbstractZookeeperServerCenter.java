@@ -24,20 +24,17 @@ public abstract class AbstractZookeeperServerCenter extends AbstractZookeeperCen
 
 	private Map<String, Server> serverMap;
 
-	private String parentPath;
+	private String parentPath = "/fei/dataAy";
 
 	private Converter converter ; 
 	
 	private ReadWriteLock lock = new ReentrantReadWriteLock() ;
 	
 	public void ini(){
-		super.ini(); 
 		if(this.converter == null){
 			this.converter = new FackJsonConverter() ; 
 		}
-		if(this.parentPath == null){
-			this.parentPath = "/fei/dataAy" ; 
-		}
+		super.ini(); 
 		Server server = loadServer() ; 
 		registerSelf(server);
 		refresh();
@@ -57,6 +54,7 @@ public abstract class AbstractZookeeperServerCenter extends AbstractZookeeperCen
 
 	@Override
 	protected void refresh() {
+		logger.info("==============zookeeper refresh start=============") ; 
 		try{
 			lock.writeLock().lock();  
 			servers = new HashMapArrayListMultiMap<>();
@@ -65,6 +63,7 @@ public abstract class AbstractZookeeperServerCenter extends AbstractZookeeperCen
 		}finally {
 			lock.writeLock().unlock();
 		}
+		logger.info("==============zookeeper refresh end=============") ; 
 	}
 
 	private void loadServers() {

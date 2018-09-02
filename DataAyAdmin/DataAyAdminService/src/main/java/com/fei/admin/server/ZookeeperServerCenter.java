@@ -49,9 +49,12 @@ public class ZookeeperServerCenter extends AbstractZookeeperServerCenter impleme
 		zookeeperServerCenter.zkConnectString = "localhost:2181" ; 
 		zookeeperServerCenter.afterPropertiesSet(); 
 		Collection<Server> servers = zookeeperServerCenter.getServerByGroupType(ServerGroupEnum.CRAWLER) ; 
-		for(Server server:servers){
-			System.out.println(server);
+		if(servers != null) {
+			for(Server server:servers){
+				System.out.println(server);
+			}
 		}
+		
 	}
 
 

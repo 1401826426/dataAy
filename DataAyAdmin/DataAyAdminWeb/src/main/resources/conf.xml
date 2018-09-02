@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <conf>
 	<netty>
-		<port>8080</port>
+		<port>9090</port>
 	</netty>
 	<spring>
 		<spring.path>classpath:spring/spring-*.xml</spring.path>
