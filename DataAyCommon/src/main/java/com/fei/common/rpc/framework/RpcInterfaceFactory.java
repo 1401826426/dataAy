@@ -5,11 +5,11 @@ import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fei.common.converter.Converter;
+import com.fei.common.converter.fackson.FackJsonConverter;
 import com.fei.common.rpc.api.TestRpc;
 import com.fei.common.rpc.api.TestRpc.TestRpcAync;
 import com.fei.common.rpc.dto.TestDto;
-import com.fei.common.rpc.framework.converter.Converter;
-import com.fei.common.rpc.framework.converter.fackson.FackJsonConverter;
 import com.fei.common.rpc.framework.generator.RpcMethodUrlGenerator;
 import com.fei.common.rpc.framework.generator.UrlGenerator;
 import com.fei.common.rpc.framework.proxy.RpcInterfaceProxyHandler;

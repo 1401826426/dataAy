@@ -14,7 +14,7 @@ import org.apache.zookeeper.data.ACL;
 import org.apache.zookeeper.data.Stat;
 import org.apache.zookeeper.server.auth.DigestAuthenticationProvider;
 
-import com.fei.common.rpc.framework.converter.ConverterException;
+import com.fei.common.converter.ConverterException;
 
 public class JustClientTest {
 	
