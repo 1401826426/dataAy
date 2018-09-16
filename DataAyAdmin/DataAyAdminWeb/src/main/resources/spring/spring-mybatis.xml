@@ -10,22 +10,9 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:mybatis/mybatis-configure.xml" />
 		<property name="mapperLocations" value="classpath:mybatis/mappers/**/*.xml"/>
-		<property name="cache" ref="cache"/>
 		<!-- <property name="typeAliasesPackage" value="com.fei.admin.pojo"/> -->
 	</bean>
 
-    <bean id = "cache" class="com.fei.common.redis.JedisCache">
-    	<property name="jedis" ref="jedis"/>
-    	<property name="converter" ref="converter"/>
-    </bean>
-    
- 
-    <bean id="converter" class="com.fei.common.converter.fackson.FackJsonConverter"/>
-    
-    <bean id="jedis" class="redis.clients.jedis.Jedis">
-        <constructor-arg name="host" value="127.0.0.1"/>
-        <constructor-arg name="port" value="6379"/> 
-    </bean>
 
     <!-- MapperAnnotationBuilder -->
     <!-- 在configuration中进行了注册mapperType的操作时MapperAnnotationBuilder会扫描当前mapper接口对应的相同路径下的相同名的xml文件 -->

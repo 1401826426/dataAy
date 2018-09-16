@@ -13,7 +13,7 @@
 		<!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
 			connectionURL="jdbc:mysql://120.79.54.108:3306/data_ay" userId="root"
-			password="Gqasdni**&amp;&amp;&amp;1">
+			password="qwert">
 			<property name="useSSL" value="false" />
 		</jdbcConnection>
 		<!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 
@@ -45,7 +45,7 @@
 			<property name="enableSubPackages" value="false" />
 		</javaClientGenerator>
 		<!-- 指定数据库表 -->
-		<!-- <table schema="" tableName="user">
+		<table schema="" tableName="user">
 		  <generatedKey column="id" identity="true" sqlStatement="MySQL" />
 		</table>
 		<table schema="" tableName="group_permission">
@@ -59,9 +59,6 @@
 		</table>
 		<table schema="" tableName="note_file">
 		<generatedKey column="id" identity="true" sqlStatement="MySQL" />
-		</table> -->
-		<table schema="" tableName="book">
-		    <generatedKey column="id" identity="true" sqlStatement="MySQL" />
 		</table>
 	</context>
 </generatorConfiguration>

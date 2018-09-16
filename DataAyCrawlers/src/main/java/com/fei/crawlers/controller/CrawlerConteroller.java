@@ -14,4 +14,18 @@ public class CrawlerConteroller implements IAdminToCrawlerController{
 		return dto;
 	}
 
+	@Override
+	public void startCrawler() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void stopCrawler() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+
 }
