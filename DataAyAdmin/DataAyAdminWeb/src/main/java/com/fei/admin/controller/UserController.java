@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import com.fei.admin.dto.UserDto;
 import com.fei.admin.plugin.auth.AuthConstants;
 import com.fei.admin.pojo.User;
-import com.fei.admin.service.impl.UserService;
+import com.fei.admin.service.IUserService;
 import com.fei.common.Response;
 import com.fei.common.ResponseStatus;
 
@@ -21,7 +21,7 @@ import com.fei.common.ResponseStatus;
 public class UserController extends BaseController{
 	
 	@Autowired
-	private UserService userService ; 
+	private IUserService userService ; 
 	
 	@RequestMapping(value={"/login"},method=RequestMethod.POST)
 	public Response login(@RequestBody User user,HttpSession session){

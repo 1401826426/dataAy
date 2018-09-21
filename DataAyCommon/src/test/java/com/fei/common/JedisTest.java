@@ -1,6 +1,5 @@
 package com.fei.common;
 
-import java.util.Arrays;
 import java.util.List;
 
 import redis.clients.jedis.Jedis;
@@ -27,6 +26,9 @@ public class JedisTest {
 		jedis.hsetnx("ttt", "ttt1", "ksduew") ; 
 		System.out.println(jedis.hget("ttt", "ttt1")) ; 
 		
+//		Set<HostAndPort> nodes = new HashSet<>(); 
+//		JedisCluster jedisCluser = new JedisCluster(nodes) ;
+//		jedisCluser.g
 		jedis.close();
 		
 	}
