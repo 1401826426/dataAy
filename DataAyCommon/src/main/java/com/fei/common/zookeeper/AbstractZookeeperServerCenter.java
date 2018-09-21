@@ -10,9 +10,9 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.ZooDefs.Ids;
 
-import com.fei.common.converter.Converter;
-import com.fei.common.converter.ConverterException;
-import com.fei.common.converter.fackson.FackJsonConverter;
+import com.fei.common.rpc.framework.converter.Converter;
+import com.fei.common.rpc.framework.converter.ConverterException;
+import com.fei.common.rpc.framework.converter.fackson.FackJsonConverter;
 import com.fei.common.zookeeper.server.Server;
 import com.fei.common.zookeeper.server.ServerGroupEnum;
 

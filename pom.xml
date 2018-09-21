@@ -23,5 +23,6 @@
         <module>DataAyCrawlers</module>
         <module>DataAyCommon</module>
         <module>DataAyBigData</module>
+        <module>DataAyMaster</module>
     </modules>
 </project>

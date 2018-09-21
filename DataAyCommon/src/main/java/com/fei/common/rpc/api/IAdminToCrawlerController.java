@@ -9,4 +9,8 @@ public interface IAdminToCrawlerController {
 	
 	public CrawlerMonitorDto getCrawlerMonitor() ; 
 	
+	public void startCrawler() ;
+	
+	public void stopCrawler() ; 
+	
 }
