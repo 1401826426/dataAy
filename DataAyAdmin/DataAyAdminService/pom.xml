@@ -64,10 +64,10 @@
 
 		<!-- https://mvnrepository.com/artifact/com.baidu.ueditor/ueditor-mini -->
 		<!-- https://mvnrepository.com/artifact/cn.bestwu/ueditor -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>cn.bestwu</groupId>
 			<artifactId>ueditor</artifactId>
-		</dependency>
+		</dependency> -->
 
 
 
