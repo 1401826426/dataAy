@@ -1,11 +1,14 @@
 package com.fei.common.log;
 
-import com.fei.common.rpc.framework.converter.Converter;
+import com.fei.common.converter.Converter;
+import com.fei.common.converter.fackson.FackJsonConverter;
 import com.fei.common.zookeeper.server.Server;
 
-public class JedisLogManager {
+import redis.clients.jedis.Jedis;
+
+public class JedisLogContext {
 	
-	private static JedisLogManager instance = new JedisLogManager() ; 
+	private static JedisLogContext instance = new JedisLogContext() ; 
 	
 	private JedisManager jedisManager ; 
 	
@@ -13,7 +16,7 @@ public class JedisLogManager {
 	
 	private Converter converter ; 
 	
-	public static JedisLogManager getInstance(){
+	public static JedisLogContext getInstance(){
 		return instance ; 
 	}
 	
@@ -25,8 +28,8 @@ public class JedisLogManager {
 		this.selfServer = server ; 
 	}
 
-	public JedisManager getJedisManager() {
-		return jedisManager;
+	public Jedis getJedis(){
+		return jedisManager.getJedis() ; 
 	}
 
 	public Server getSelfServer() {
@@ -37,11 +40,15 @@ public class JedisLogManager {
 		if(converter == null){
 			synchronized (this) {
 				if(converter == null){
-//					this.converter = new FackJsonConverter() ; 
+					this.converter = new FackJsonConverter() ; 
 				}
 			}
 		}
 		return converter;
+	}
+
+	public void registerConverter(Converter converter) {
+		this.converter = converter; 
 	}
 	
 	

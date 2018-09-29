@@ -6,7 +6,6 @@ import redis.clients.jedis.JedisCluster;
 @SuppressWarnings("unused")
 public class JedisManager{
 	
-	
 	private Jedis jedis ; 
 	
 	private JedisCluster jedisCluster ; 

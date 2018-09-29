@@ -8,7 +8,7 @@ public class LogObject {
 	
 	private Server server ; 
 	
-	private LoggingEvent LoggingEvent ;
+	private LogEvent LogEvent ;
 
 	public Server getServer() {
 		return server;
@@ -18,18 +18,25 @@ public class LogObject {
 		this.server = server;
 	}
 
-	public LoggingEvent getLoggingEvent() {
-		return LoggingEvent;
+	
+	
+	
+	public LogObject() {
+		super();
 	}
 
-	public void setLoggingEvent(LoggingEvent LoggingEvent) {
-		this.LoggingEvent = LoggingEvent;
+	public LogEvent getLogEvent() {
+		return LogEvent;
+	}
+
+	public void setLogEvent(LogEvent logEvent) {
+		LogEvent = logEvent;
 	}
 
 	public LogObject(Server server, LoggingEvent LoggingEvent) {
 		super();
 		this.server = server;
-		this.LoggingEvent = LoggingEvent;
+		this.LogEvent = new LogEvent(LoggingEvent) ; 
 	} 
 	
 	

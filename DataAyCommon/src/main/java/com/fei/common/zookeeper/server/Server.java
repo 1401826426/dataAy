@@ -63,7 +63,9 @@ public class Server {
 	public void setServerKey(String serverKey) {
 		this.serverKey = serverKey;
 	}
-
+	
+	
+	
 	@Override
 	public String toString() {
 		return "Server [host=" + host + ", port=" + port + ", group=" + group + ", id=" + id + ", serverKey="

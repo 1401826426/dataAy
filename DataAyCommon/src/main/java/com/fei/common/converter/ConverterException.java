@@ -1,4 +1,4 @@
-package com.fei.common.rpc.framework.converter;
+package com.fei.common.converter;
 
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -11,6 +11,7 @@ public class ConverterException extends Exception{
 	
 	public ConverterException(Exception e) {
 		super();
+		e.printStackTrace();
 		this.e = e;
 	}
 

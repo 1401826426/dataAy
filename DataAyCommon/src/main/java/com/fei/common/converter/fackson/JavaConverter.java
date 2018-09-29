@@ -1,4 +1,4 @@
-package com.fei.common.rpc.framework.converter.fackson;
+package com.fei.common.converter.fackson;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -7,8 +7,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.Type;
 
-import com.fei.common.rpc.framework.converter.Converter;
-import com.fei.common.rpc.framework.converter.ConverterException;
+import com.fei.common.converter.Converter;
+import com.fei.common.converter.ConverterException;
 
 public class JavaConverter implements Converter{
 

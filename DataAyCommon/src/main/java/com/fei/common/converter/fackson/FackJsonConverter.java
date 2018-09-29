@@ -1,11 +1,11 @@
-package com.fei.common.rpc.framework.converter.fackson;
+package com.fei.common.converter.fackson;
 
 import java.lang.reflect.Type;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fei.common.rpc.framework.converter.Converter;
-import com.fei.common.rpc.framework.converter.ConverterException;
+import com.fei.common.converter.Converter;
+import com.fei.common.converter.ConverterException;
 
 public class FackJsonConverter implements Converter{
 	
@@ -31,6 +31,7 @@ public class FackJsonConverter implements Converter{
 		try{
 			return mapper.writeValueAsBytes(value) ; 
 		}catch(Exception e){
+			e.printStackTrace();
 			throw new ConverterException(e) ; 
 		}
 	}

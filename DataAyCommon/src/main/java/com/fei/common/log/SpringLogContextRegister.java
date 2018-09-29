@@ -1,0 +1,42 @@
+package com.fei.common.log;
+
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryAware;
+import org.springframework.beans.factory.InitializingBean;
+
+import com.fei.common.converter.Converter;
+import com.fei.common.zookeeper.AbstractZookeeperServerCenter;
+
+public class SpringLogContextRegister implements InitializingBean , BeanFactoryAware{
+	
+	private BeanFactory beanFactory ; 
+	
+	@Override
+	public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+		this.beanFactory = beanFactory; 
+		
+	}
+	
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		AbstractZookeeperServerCenter serverCenter = beanFactory.getBean(AbstractZookeeperServerCenter.class) ; 
+		if(serverCenter != null){
+			JedisLogContext.getInstance().registerSelfServer(serverCenter.getSelfServer()); 
+		}
+		JedisManager jedisManager = beanFactory.getBean(JedisManager.class) ; 
+		if(jedisManager != null){
+			JedisLogContext.getInstance().registerJedisManager(jedisManager);
+		}
+		try{
+			Converter converter = beanFactory.getBean(Converter.class) ; 
+			if(converter != null){
+				JedisLogContext.getInstance().registerConverter(converter) ; 
+			}
+		}catch(Exception e){
+			
+		}
+		
+	}
+
+}

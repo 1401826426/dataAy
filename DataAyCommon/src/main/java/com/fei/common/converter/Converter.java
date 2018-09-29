@@ -1,4 +1,4 @@
-package com.fei.common.rpc.framework.converter;
+package com.fei.common.converter;
 
 import java.lang.reflect.Type;
 
