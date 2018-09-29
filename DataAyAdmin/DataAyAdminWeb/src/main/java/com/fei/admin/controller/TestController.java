@@ -51,4 +51,16 @@ public class TestController {
 		return testService.testSpring() ; 
 	}
 	
+	@RequestMapping(value = "/test/tx" , produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public Response testTx(){
+		return testService.testTx(); 
+	}
+	
+	@RequestMapping(value = "/test/nested" , produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public Response testNested(){
+		return testService.testReequiresNew(); 
+	}
+	
 }

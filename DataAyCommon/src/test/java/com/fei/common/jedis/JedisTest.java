@@ -1,4 +1,4 @@
-package com.fei.common;
+package com.fei.common.jedis;
 
 import java.util.List;
 
@@ -32,5 +32,12 @@ public class JedisTest {
 		jedis.close();
 		
 	}
+	
+	
+	public static void testKey(){
+		
+	}
+	
+	
 	
 }

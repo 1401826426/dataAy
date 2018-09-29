@@ -25,10 +25,12 @@ public class ZookeeperServerCenter extends AbstractZookeeperServerCenter impleme
 	@Value("${zk.connect.string}")
 	private String zkConnectString ; 
 	
+	private Server selfServer ; 
+	
 	@Override
 	protected Server loadServer() {
-		Server server = new Server(ServerGroupEnum.ADMIN,host,Integer.valueOf(port),Integer.valueOf(id)) ; 
-		return server;
+		selfServer = new Server(ServerGroupEnum.ADMIN,host,Integer.valueOf(port),Integer.valueOf(id)) ; 
+		return selfServer;
 	}
 
 	@Override
@@ -55,6 +57,11 @@ public class ZookeeperServerCenter extends AbstractZookeeperServerCenter impleme
 			}
 		}
 		
+	}
+
+	@Override
+	public Server getSelfServer() {
+		return selfServer;
 	}
 
 

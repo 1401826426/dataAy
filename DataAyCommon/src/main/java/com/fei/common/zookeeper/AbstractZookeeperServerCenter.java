@@ -114,5 +114,7 @@ public abstract class AbstractZookeeperServerCenter extends AbstractZookeeperCen
 			lock.readLock().unlock();  
 		}
 	}
+	
+	public abstract Server getSelfServer();
 
 }

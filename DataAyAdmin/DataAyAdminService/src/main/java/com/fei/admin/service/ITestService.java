@@ -7,6 +7,12 @@ public interface ITestService {
 	
 	public Response test() ;
 
-	public TestDto testSpring(); 
+	public TestDto testSpring();
+
+	public Response testTx();
+
+	public Response testReequiresNew(); 
+	
+	public Response nested(); 
 	
 }
