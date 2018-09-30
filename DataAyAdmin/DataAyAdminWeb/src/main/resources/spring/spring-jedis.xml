@@ -17,7 +17,7 @@
 	
 	<bean class = "com.fei.common.log.SpringLogContextRegister"/>
 	
-	<bean class = "com.fei.common.redis.JedisInterfaceRegister">
+	<bean class = "com.fei.common.redis.spring.JedisInterfaceRegister">
 	   <property name="basePackage" value="com.fei.common.redis"/>
 	   <property name="jedisName" value="jedisPool"/>
 	</bean>

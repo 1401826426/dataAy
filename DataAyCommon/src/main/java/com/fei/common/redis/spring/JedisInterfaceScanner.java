@@ -1,4 +1,4 @@
-package com.fei.common.redis;
+package com.fei.common.redis.spring;
 
 import java.io.IOException;
 import java.util.Set;
@@ -14,6 +14,8 @@ import org.springframework.core.type.ClassMetadata;
 import org.springframework.core.type.classreading.MetadataReader;
 import org.springframework.core.type.classreading.MetadataReaderFactory;
 import org.springframework.core.type.filter.TypeFilter;
+
+import com.fei.common.redis.JedisInterface;
 
 public class JedisInterfaceScanner extends ClassPathBeanDefinitionScanner{
 

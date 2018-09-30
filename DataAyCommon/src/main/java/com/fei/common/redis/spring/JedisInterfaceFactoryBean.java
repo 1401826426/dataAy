@@ -1,6 +1,8 @@
-package com.fei.common.redis;
+package com.fei.common.redis.spring;
 
 import org.springframework.beans.factory.FactoryBean;
+
+import com.fei.common.redis.JedisClientManager;
 
 public class JedisInterfaceFactoryBean<T> implements FactoryBean<T>{
 	
