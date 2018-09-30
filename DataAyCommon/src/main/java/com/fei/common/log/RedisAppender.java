@@ -7,9 +7,8 @@ import org.apache.log4j.spi.LoggingEvent;
 
 import com.fei.common.converter.ConverterException;
 import com.fei.common.redis.Channel;
+import com.fei.common.redis.IJedisPubSub;
 import com.fei.common.zookeeper.server.Server;
-
-import redis.clients.jedis.Jedis;
 
 public class RedisAppender extends AppenderSkeleton{ 
 	
@@ -25,13 +24,13 @@ public class RedisAppender extends AppenderSkeleton{
 
 	@Override
 	protected void append(LoggingEvent event) {
-		Jedis jedis = JedisLogContext.getInstance().getJedis() ;
+		IJedisPubSub jedisPubSub = JedisLogContext.getInstance().getJedisPubSub() ;
 		try {
 			Server server = JedisLogContext.getInstance().getSelfServer() ;  
 			LogObject logObject = new LogObject(server,event) ;
 			byte[] bytes = JedisLogContext.getInstance().getConverter().writeValue(logObject)  ;
 			String message = new String(bytes,"utf-8") ;
-			jedis.publish(Channel.LOG.getChannel(), message);
+			jedisPubSub.publish(Channel.LOG.getChannel(), message);
 		} catch (ConverterException e) {
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {

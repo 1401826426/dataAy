@@ -6,9 +6,7 @@ import org.apache.ibatis.cache.Cache;
 
 public class JedisCache implements Cache{
 	
-	private String id ; 
-
-//	private Jedis jedis ; 
+	private String id ;  
 	
 	@Override
 	public String getId() {

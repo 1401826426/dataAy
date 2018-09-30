@@ -6,6 +6,7 @@ import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.InitializingBean;
 
 import com.fei.common.converter.Converter;
+import com.fei.common.redis.IJedisPubSub;
 import com.fei.common.zookeeper.AbstractZookeeperServerCenter;
 
 public class SpringLogContextRegister implements InitializingBean , BeanFactoryAware{
@@ -24,10 +25,8 @@ public class SpringLogContextRegister implements InitializingBean , BeanFactoryA
 		if(serverCenter != null){
 			JedisLogContext.getInstance().registerSelfServer(serverCenter.getSelfServer()); 
 		}
-		JedisManager jedisManager = beanFactory.getBean(JedisManager.class) ; 
-		if(jedisManager != null){
-			JedisLogContext.getInstance().registerJedisManager(jedisManager);
-		}
+		IJedisPubSub jedisPubSub = beanFactory.getBean(IJedisPubSub.class) ;  
+		JedisLogContext.getInstance().registerJedisPubSub(jedisPubSub);
 		try{
 			Converter converter = beanFactory.getBean(Converter.class) ; 
 			if(converter != null){

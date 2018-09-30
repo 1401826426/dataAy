@@ -2,15 +2,14 @@ package com.fei.common.log;
 
 import com.fei.common.converter.Converter;
 import com.fei.common.converter.fackson.FackJsonConverter;
+import com.fei.common.redis.IJedisPubSub;
 import com.fei.common.zookeeper.server.Server;
-
-import redis.clients.jedis.Jedis;
 
 public class JedisLogContext {
 	
 	private static JedisLogContext instance = new JedisLogContext() ; 
 	
-	private JedisManager jedisManager ; 
+	private IJedisPubSub jedisPubSub ; 
 	
 	private Server selfServer ; 
 	
@@ -20,16 +19,16 @@ public class JedisLogContext {
 		return instance ; 
 	}
 	
-	public void registerJedisManager(JedisManager jedisManager){
-		this.jedisManager = jedisManager ; 
+	public void registerJedisPubSub(IJedisPubSub jedisPubSub){
+		this.jedisPubSub = jedisPubSub ;
 	}
 	
 	public void registerSelfServer(Server server){
 		this.selfServer = server ; 
 	}
 
-	public Jedis getJedis(){
-		return jedisManager.getJedis() ; 
+	public IJedisPubSub getJedisPubSub(){
+		return jedisPubSub ; 
 	}
 
 	public Server getSelfServer() {
