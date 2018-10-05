@@ -11,7 +11,6 @@
     <result column="content" jdbcType="VARCHAR" property="content" />
   </resultMap>
   
-  <cache type="com.fei.common.cache.JedisCache" id="book"></cache>
   
   <sql id="Example_Where_Clause">
     <!-- @ibatorgenerated -->

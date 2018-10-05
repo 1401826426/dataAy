@@ -10,6 +10,9 @@
     <result column="pic" jdbcType="VARCHAR" property="pic" />
     <result column="content" jdbcType="VARCHAR" property="content" />
   </resultMap>
+  
+  <cache type="com.fei.common.cache.JedisCache"/>
+  
   <sql id="Example_Where_Clause">
     <!-- @ibatorgenerated -->
     <where>

@@ -37,7 +37,7 @@ public class JedisClientManagerTest {
 	}
 	
 	private void doTestPubSub(JedisClientManager jedisClientManager,String name) throws InterruptedException {
-		jedisClientManager.setInterface(IJedisPubSub.class);
+//		jedisClientManager.setInterface(IJedisPubSub.class);
 		IJedisPubSub jedisPubSub = jedisClientManager.getInterface(IJedisPubSub.class) ; 
 		CountDownLatch countDownLatch = new CountDownLatch(1) ;
 		Executors.newSingleThreadExecutor().execute(new Runnable(){

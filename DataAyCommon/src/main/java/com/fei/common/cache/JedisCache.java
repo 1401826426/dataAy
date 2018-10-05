@@ -45,7 +45,10 @@ public class JedisCache implements Cache{
 	public Object getObject(Object key) {
 		try{
 			byte[] keyBytes = JedisCacheContext.getInstance().getConverter().writeValue(key) ;
-			byte[] valueBytes = JedisCacheContext.getInstance().getJedisHashCommand().hget(idBytes, keyBytes) ; 
+			byte[] valueBytes = JedisCacheContext.getInstance().getJedisHashCommand().hget(idBytes, keyBytes) ;
+			if(valueBytes == null){
+				return null ; 
+			}
 			return JedisCacheContext.getInstance().getConverter().readValue(valueBytes, null) ; 
 		}catch(Exception e){
 			e.printStackTrace();

@@ -4,9 +4,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 import redis.clients.jedis.BasicCommands;
 import redis.clients.jedis.BinaryJedisClusterCommands;
@@ -23,49 +21,19 @@ public class JedisClientManager implements InvocationHandler{
 	
 	private JedisCluster jedisCluster ;
 	
-	private Set<Class<?>> useInterface = new HashSet<>() ;
-	
-	private Object proxy ;
-	
 	private Map<Method,Method> toJedisInterface = new HashMap<>() ; 
 	
 	private Map<Method,Method> toJedisClusterInterface = new HashMap<>() ; 
 	
+	private Map<Class<?>,Object> interfaceObject = new HashMap<>(); 
+	
 	public JedisClientManager(JedisCluster jedisCluster){
-		this(null,jedisCluster,null) ; 
+		this.jedisCluster = jedisCluster ;  
 	}
 	
 	public JedisClientManager(JedisPool jedisPool){
-		this(jedisPool,null,null) ;  
+		this.jedisPool = jedisPool ;   
 	}
-	
-	public JedisClientManager(JedisPool jedisPool,Class<?>[] clazzs){
-		this(jedisPool,null,clazzs) ;  
-	}
-	
-	public JedisClientManager(JedisCluster jedisCluster,Class<?>[]clazzs){
-		this(null,jedisCluster,clazzs) ; 
-	}
-	
-	public JedisClientManager(JedisPool jedisPool,JedisCluster jedisCluster,Class<?>[] clazzs){
-		this.jedisCluster = jedisCluster;
-		this.jedisPool = jedisPool ; 
-		setInterfaces(clazzs);
-	}
-
-
-    public void setInterfaces(Class<?>[] interfaces){
-    	if(interfaces == null){
-    		return ; 
-    	}
-    	for(Class<?> clazz:interfaces){
-    		addInterface(clazz) ; 
-    	}
-    }
-    
-    public void setInterface(Class<?> clazz){
-    	addInterface(clazz);
-    }
     
 	private void addInterface(Class<?> clazz) {
 		if(clazz == null){
@@ -73,9 +41,6 @@ public class JedisClientManager implements InvocationHandler{
 		}
 		if(!clazz.isInterface()){
 			throw new RuntimeException("not interface") ;
-		}
-		if(useInterface.contains(clazz)){
-			return ; 
 		}
 		Map<Method,Method> jedisMap = new HashMap<>() ;
 		Map<Method,Method> jedisClusterMap = new HashMap<>() ;
@@ -93,37 +58,42 @@ public class JedisClientManager implements InvocationHandler{
 		}
 		this.toJedisInterface.putAll(jedisMap);
 		this.toJedisClusterInterface.putAll(jedisClusterMap);
-		this.useInterface.add(clazz) ;
 	}
 
 	
 	@SuppressWarnings("unchecked")
-	public <T> T getInterface(Class<T> interace){
-    	if(!useInterface.contains(interace)){
-    		throw new RuntimeException("illegal interface" + interace); 
-    	}
-    	checkCreateProxy() ;
-    	return (T)proxy;  
-    }
-    
-	private void checkCreateProxy() {
-		if(proxy == null){
-			synchronized (this) {
-				if(proxy == null){
-					createProxy() ; 
+	public <T> T getInterface(Class<T> clazz){
+		if(clazz == null){
+			throw new RuntimeException("clazz is null") ; 
+		}
+		if(!clazz.isInterface()){
+			throw new RuntimeException("not interface") ; 
+		}
+		Object result = interfaceObject.get(clazz) ; 
+    	if(result == null){
+    		synchronized (this) {
+    			result = interfaceObject.get(clazz) ;
+				if(result == null){
+					result = createProxy(clazz) ;
+					if(result != null){						
+						interfaceObject.put(clazz,result) ; 
+					}
 				}
 			}
-		}
-	}
-
-	private void createProxy() {
+    	}
+    	return (T)result;  
+    }
+    
+	private <T> Object createProxy(Class<T> clazz) {
+		addInterface(clazz);
 		if(jedisCluster == null && jedisPool == null){
 			throw new RuntimeException("no jedis") ; 
 		}
-		Class<?>[] interfaces = new Class<?>[this.useInterface.size()] ; 
-		this.useInterface.toArray(interfaces) ; 
-		this.proxy = Proxy.newProxyInstance(this.getClass().getClassLoader(), interfaces, this);
+		Class<?>[] interfaces = new Class<?>[]{clazz} ; 
+		return Proxy.newProxyInstance(this.getClass().getClassLoader(), interfaces, this);
 	}
+
+
 
 	@Override
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
@@ -131,7 +101,7 @@ public class JedisClientManager implements InvocationHandler{
 			Jedis jedis = null ; 
 			try{
 				jedis = jedisPool.getResource() ; 
-				Method jedisMethod = toJedisInterface.get(method) ;  
+				Method jedisMethod = toJedisInterface.get(method) ;
 				return jedisMethod.invoke(jedis, args);
 			}catch(Exception e){
 				throw e ; 
@@ -141,7 +111,7 @@ public class JedisClientManager implements InvocationHandler{
 				}
 			}
 		}else if(jedisCluster != null){
-			Method jedisClusterMethod = toJedisClusterInterface.get(method) ;   
+			Method jedisClusterMethod = toJedisClusterInterface.get(method) ;
 			return jedisClusterMethod.invoke(jedisCluster, args) ; 
 		}else{
 			throw new RuntimeException("no jedis") ;
@@ -151,21 +121,22 @@ public class JedisClientManager implements InvocationHandler{
 	
 	public static void main(String[] args) {
 		JedisClientManager jedisClientManager = new JedisClientManager(new JedisPool("127.0.0.1",6379)) ;
-		jedisClientManager.addInterface(JedisCommands.class);
-//		jedisClientManager.addInterface(MultiKeyCommands.class);
-//		jedisClientManager.addInterface(AdvancedJedisCommands.class);
-//		jedisClientManager.addInterface(ScriptingCommands.class);
-		jedisClientManager.addInterface(BasicCommands.class);
-//		jedisClientManager.addInterface(BinaryJedisCommands.class);
-//		jedisClientManager.addInterface(MultiKeyBinaryCommands.class);
-//		jedisClientManager.addInterface(AdvancedBinaryJedisCommands.class);
-//		jedisClientManager.addInterface(BinaryScriptingCommands.class);
-//		jedisClientManager.addInterface(ClusterCommands.class);
-		jedisClientManager.addInterface(MultiKeyJedisClusterCommands.class);
-//		jedisClientManager.addInterface(JedisClusterScriptingCommands.class);
-		jedisClientManager.addInterface(BinaryJedisClusterCommands.class);
-		jedisClientManager.addInterface(MultiKeyBinaryJedisClusterCommands.class);
-//		jedisClientManager.addInterface(JedisClusterBinaryScriptingCommands.class);
+		jedisClientManager.getInterface(JedisCommands.class);
+		jedisClientManager.getInterface(JedisCommands.class);
+//		jedisClientManager.getInterface(MultiKeyCommands.class);
+//		jedisClientManager.getInterface(AdvancedJedisCommands.class);
+//		jedisClientManager.getInterface(ScriptingCommands.class);
+		jedisClientManager.getInterface(BasicCommands.class);
+//		jedisClientManager.getInterface(BinaryJedisCommands.class);
+//		jedisClientManager.getInterface(MultiKeyBinaryCommands.class);
+//		jedisClientManager.getInterface(AdvancedBinaryJedisCommands.class);
+//		jedisClientManager.getInterface(BinaryScriptingCommands.class);
+//		jedisClientManager.getInterface(ClusterCommands.class);
+		jedisClientManager.getInterface(MultiKeyJedisClusterCommands.class);
+//		jedisClientManager.getInterface(JedisClusterScriptingCommands.class);
+		jedisClientManager.getInterface(BinaryJedisClusterCommands.class);
+		jedisClientManager.getInterface(MultiKeyBinaryJedisClusterCommands.class);
+//		jedisClientManager.getInterface(JedisClusterBinaryScriptingCommands.class);
 	}
 	
 	

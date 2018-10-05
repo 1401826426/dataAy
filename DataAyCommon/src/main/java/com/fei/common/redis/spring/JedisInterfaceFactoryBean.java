@@ -32,12 +32,12 @@ public class JedisInterfaceFactoryBean<T> implements FactoryBean<T>{
 
 	public void setJedisClientManager(JedisClientManager jedisClientManager) {
 		this.jedisClientManager = jedisClientManager;
-		this.jedisClientManager.setInterface(clazz);
+//		this.jedisClientManager.setInterface(clazz);
 	}
 
 	@Override
 	public T getObject() throws Exception {
-		return jedisClientManager.getInterface(clazz);
+		return (T)jedisClientManager.getInterface(clazz);
 	}
 
 	@Override
