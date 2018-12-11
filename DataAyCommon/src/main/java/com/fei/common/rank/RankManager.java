@@ -2,9 +2,9 @@ package com.fei.common.rank;
 
 import java.util.List;
 
-import com.fei.common.converter.Converter;
-import com.fei.common.converter.ConverterException;
 import com.fei.common.redis.IJedisSortSet;
+import com.fei.netty.springmvc.converter.Converter;
+import com.fei.netty.springmvc.converter.ConverterException;
 
 @SuppressWarnings("unused")
 public class RankManager {

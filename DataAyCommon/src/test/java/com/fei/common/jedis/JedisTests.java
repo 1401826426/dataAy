@@ -86,7 +86,7 @@ public class JedisTests {
 		//同时将多个 field-value (域-值)对设置到哈希表 key 中
 		System.out.println("hmset="+jedis.hmset("key2", map));
 		//获取所有给定字段的值
-		System.out.println("hmget="+jedis.hmget("key2","field2","field3"));
+		System.out.println("hmget="+jedis.hmget("key2","field2","field5"));
 		//获取哈希表中所有值
 		System.out.println("hvals="+jedis.hvals("key2"));
 		//获取在哈希表中指定 key 的所有字段和值
@@ -107,7 +107,9 @@ public class JedisTests {
 		//删除一个或多个哈希表字段
 		System.out.println("hdel="+jedis.hdel("key1","field1","field2"));
 		//删除一个或多个哈希表字段
-		System.out.println("del="+jedis.del("key2"));	
+		System.out.println("del="+jedis.del("key2"));
+		
+//		jedis.h
 	}
 	
 	@Test

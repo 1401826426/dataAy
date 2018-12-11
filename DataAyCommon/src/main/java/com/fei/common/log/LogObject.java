@@ -2,7 +2,7 @@ package com.fei.common.log;
 
 import org.apache.log4j.spi.LoggingEvent;
 
-import com.fei.common.zookeeper.server.Server;
+import com.fei.netty.springmvc.zookeeper.server.Server;
 
 public class LogObject {
 	

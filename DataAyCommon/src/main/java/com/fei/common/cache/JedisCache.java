@@ -6,7 +6,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import org.apache.ibatis.cache.Cache;
 
-import com.fei.common.converter.ConverterException;
+import com.fei.netty.springmvc.converter.ConverterException;
 
 public class JedisCache implements Cache{
 	

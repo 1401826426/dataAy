@@ -20,6 +20,10 @@
 			<groupId>org.mybatis.generator</groupId>
 			<artifactId>mybatis-generator-core</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.fei</groupId>
+			<artifactId>netty-springmvc</artifactId>
+		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.aliyun/aliyun-java-sdk-dysmsapi -->
 		<dependency>

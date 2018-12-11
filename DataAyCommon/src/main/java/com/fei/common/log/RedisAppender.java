@@ -5,10 +5,10 @@ import java.io.UnsupportedEncodingException;
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.spi.LoggingEvent;
 
-import com.fei.common.converter.ConverterException;
 import com.fei.common.redis.Channel;
 import com.fei.common.redis.IJedisPubSub;
-import com.fei.common.zookeeper.server.Server;
+import com.fei.netty.springmvc.converter.ConverterException;
+import com.fei.netty.springmvc.zookeeper.server.Server;
 
 public class RedisAppender extends AppenderSkeleton{ 
 	

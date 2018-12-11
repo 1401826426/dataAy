@@ -5,8 +5,8 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.InitializingBean;
 
-import com.fei.common.converter.Converter;
 import com.fei.common.redis.IJedisHashCommand;
+import com.fei.netty.springmvc.converter.Converter;
 
 public class SpringJedisCacheContextRegister implements InitializingBean,BeanFactoryAware{
 	

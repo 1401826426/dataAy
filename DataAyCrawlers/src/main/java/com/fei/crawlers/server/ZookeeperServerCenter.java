@@ -4,9 +4,9 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.fei.common.zookeeper.AbstractZookeeperServerCenter;
-import com.fei.common.zookeeper.server.Server;
-import com.fei.common.zookeeper.server.ServerGroupEnum;
+import com.fei.netty.springmvc.zookeeper.AbstractZookeeperServerCenter;
+import com.fei.netty.springmvc.zookeeper.server.Server;
+import com.fei.netty.springmvc.zookeeper.server.ServerGroupEnum;
 
 @Component
 public class ZookeeperServerCenter extends AbstractZookeeperServerCenter implements InitializingBean{

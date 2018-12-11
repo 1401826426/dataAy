@@ -31,6 +31,8 @@ public interface BookMapper {
 	Book selectOneByExample(BookExample example);
 
 	//self_code_start
-
+	
+	List<Book> selectByIds(@Param("ids") List<Integer> ids) ; 
+	
 	//self_code_end
 }

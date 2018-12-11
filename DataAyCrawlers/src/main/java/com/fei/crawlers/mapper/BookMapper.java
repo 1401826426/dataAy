@@ -4,8 +4,11 @@ import com.fei.crawlers.pojo.Book;
 import com.fei.crawlers.pojo.BookExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.cache.annotation.Cacheable;
 
 public interface BookMapper {
+	
+	@Cacheable
     long countByExample(BookExample example);
 
     int deleteByExample(BookExample example);

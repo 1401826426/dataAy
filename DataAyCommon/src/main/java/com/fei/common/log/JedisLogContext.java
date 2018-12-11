@@ -1,9 +1,9 @@
 package com.fei.common.log;
 
-import com.fei.common.converter.Converter;
-import com.fei.common.converter.fackson.FackJsonConverter;
 import com.fei.common.redis.IJedisPubSub;
-import com.fei.common.zookeeper.server.Server;
+import com.fei.netty.springmvc.converter.Converter;
+import com.fei.netty.springmvc.converter.fackson.FackJsonConverter;
+import com.fei.netty.springmvc.zookeeper.server.Server;
 
 public class JedisLogContext {
 	

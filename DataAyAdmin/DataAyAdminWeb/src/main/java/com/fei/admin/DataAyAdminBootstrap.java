@@ -1,6 +1,6 @@
 package com.fei.admin;
 
-import com.fei.netty.springmvc.NettyBootstrap;
+import com.fei.netty.springmvc.deprecated.NettyBootstrap;
 
 public class DataAyAdminBootstrap {
 	

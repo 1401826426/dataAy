@@ -1,8 +1,8 @@
 package com.fei.common.cache;
 
-import com.fei.common.converter.Converter;
-import com.fei.common.converter.fackson.JavaConverter;
 import com.fei.common.redis.IJedisHashCommand;
+import com.fei.netty.springmvc.converter.Converter;
+import com.fei.netty.springmvc.converter.fackson.JavaConverter;
 
 public class JedisCacheContext {
 	
