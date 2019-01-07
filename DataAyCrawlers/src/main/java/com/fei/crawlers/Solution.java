@@ -1,9 +1,5 @@
 package com.fei.crawlers;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
-
 class ListNode {
       int val;
       ListNode next;
@@ -17,53 +13,99 @@ class TreeNode {
      int val;
      TreeNode left;
      TreeNode right;
-       TreeNode(int x) { val = x; }
+     TreeNode(int x) { val = x; }
 }
 
-class Solution {
-	
-	class State{
-		TreeNode node ; 
-		int state ; 
-		State(TreeNode node,int state){
-			this.node = node ; 
-			this.state = state; 
+
+
+public class Solution {
+    public TreeNode Convert(TreeNode root) {
+    	if(root == null){
+    		return null ; 
+    	}
+    	return convert(root)[0] ; 
+    }
+
+	private TreeNode[] convert(TreeNode root) {
+		if(root == null){
+			return null ;  
 		}
+		TreeNode[] leftNodes = convert(root.left) ; 
+		TreeNode[] rightNodes = convert(root.right) ; 
+		TreeNode head = root; 
+		TreeNode tail = root ; 
+		if(leftNodes != null){
+			leftNodes[1].right = root ; 
+			root.left = leftNodes[1] ; 
+			head = leftNodes[0] ; 
+		}
+		if(rightNodes != null){
+			root.right = rightNodes[0] ; 
+			rightNodes[0].left = root ; 
+			tail = rightNodes[1] ; 
+		}
+		return new TreeNode[]{head,tail};
 	}
 	
-	 public List<Integer> postorderTraversal(TreeNode root) {
-    	Stack<State> stack = new Stack<>() ; 
-    	List<Integer> list = new ArrayList<Integer>() ;
-    	stack.push(new State(root,0)) ; 
-    	while(!stack.isEmpty()){
-    		State state = stack.pop() ; 
-    		if(state.node == null){
-    			continue; 
-    		}
-    		if(state.state == 0){
-    			stack.push(new State(state.node,1)) ;
-    			stack.push(new State(state.node.left,0)) ; 
-    		}else if(state.state == 1){
-    			stack.push(new State(state.node,2)) ; 
-    			stack.push(new State(state.node.right,0)) ;
-    		}else{
-    			list.add(state.node.val) ; 
-    		}
-    	}
-        return list ; 
-    }
-    
-    public static void main(String[] args){
-    	TreeNode root = new TreeNode(1) ;
-    	TreeNode left = new TreeNode(4) ; 
-    	TreeNode right = new TreeNode(2) ;
-    	TreeNode rr = new TreeNode(3) ; 
-    	root.left = left ; 
-    	root.right = right ; 
-    	right.right = rr ; 
-    	System.out.println(new Solution().postorderTraversal(root));
-    }
+	public static void main(String[] args){
+		int[] a = new int[]{10,6,14,4,8,12,16} ; 
+		TreeNode[] nodes = new TreeNode[a.length+1] ; 
+		for(int i = 0;i < a.length;i++){
+			nodes[i+1] = new TreeNode(a[i]) ; 
+		}
+		for(int i = 1;i <= a.length/2;i++){
+			int ll = i*2 ; 
+			if(ll <= a.length){
+				nodes[i].left = nodes[ll] ; 
+			}
+			int rr = i*2+1 ; 
+			if(rr <= a.length){
+				nodes[i].right = nodes[rr] ; 
+			}
+		}
+		TreeNode head = new Solution().Convert(nodes[1]) ; 
+		TreeNode pre = null ; 
+		while(head != null){
+			System.out.println(head.val);
+			pre = head ; 
+			head = head.right ; 
+		}
+		System.out.println("======================");
+		while(pre != null){
+			System.out.println(pre.val);
+			pre = pre.left; 
+		}
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

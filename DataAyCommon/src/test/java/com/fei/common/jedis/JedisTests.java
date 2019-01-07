@@ -229,46 +229,46 @@ public class JedisTests {
 		map2.put("val3", 1.0) ;
 		map2.put("val4", 2.0) ;
 		map2.put("val5", 3.0) ;
-		//向有序集合添加一个或多个成员，或者更新已存在成员的分数
+		//向有序集合添加一个或多个成员，或者更新已存在成员的分数O(logn(n))
 		System.out.println("zadd="+jedis.zadd("sortedSetKey1", map));
 		System.out.println("zadd="+jedis.zadd("sortedSetKey2", map2));
-		//获取有序集合的成员数
+		//获取有序集合的成员数O(1)
 		System.out.println("zcard="+jedis.zcard("sortedSetKey1"));
-		//计算在有序集合中指定区间分数的成员数
+		//计算在有序集合中指定区间分数的成员数O(log(N))
 		System.out.println("zcount="+jedis.zcount("sortedSetKey1", 1.0, 2.0));
-		//有序集合中对指定成员的分数加上增量 increment
+		//有序集合中对指定成员的分数加上增量 increment O(long(N))
 		System.out.println("zincrby="+jedis.zincrby("sortedSetKey1", 2.0, "val2"));
 		//计算给定的一个或多个有序集的交集并将结果集存储在新的有序集合 key 中
 		System.out.println("zinterstore="+jedis.zinterstore("sortedSetKey3","sortedSetKey1","sortedSetKey2"));
-		//在有序集合中计算指定字典区间内成员数量
+		//在有序集合中计算指定字典区间内成员数量Olog(N)
 		System.out.println("zlxcount="+jedis.zlexcount("sortedSetKey1", "[val1", "[val5"));
-		//通过索引区间返回有序集合成指定区间内的成员
+		//通过索引区间返回有序集合成指定区间内的成员O(log(n)+m)
 		System.out.println("zrange="+jedis.zrange("sortedSetKey1",0, 3));
-		//通过字典区间返回有序集合的成员
+		//通过字典区间返回有序集合的成员O(log(n)+m)
 		System.out.println("zrangebylex="+jedis.zrangeByLex("sortedSetKey1", "[val1", "[val2"));
-		//通过分数返回有序集合指定区间内的成员
+		//通过分数返回有序集合指定区间内的成员O(log(n)+m)
 		System.out.println("zrangebyscore="+jedis.zrangeByScore("sortedSetKey1",1.0, 5.0));
-		//返回有序集合中指定成员的索引
+		//返回有序集合中指定成员的索引O(log(N))
 		System.out.println("zrank="+jedis.zrank("sortedSetKey1","val1"));
-		//返回有序集中指定区间内的成员，通过索引，分数从高到底
+		//返回有序集中指定区间内的成员，通过索引，分数从高到底O(log(n)+m)
 		System.out.println("zrevrange="+jedis.zrevrange("sortedSetKey1", 0, 10));
-		//返回有序集中指定分数区间内的成员，分数从高到低排序
+		//返回有序集中指定分数区间内的成员，分数从高到低排序O(log(n)+m)
 		System.out.println("zrevrangebyscore="+jedis.zrevrangeByScore("sortedSetKey1",3.0, 1.0));
-		//返回有序集合中指定成员的排名，有序集成员按分数值递减(从大到小)排序
+		//返回有序集合中指定成员的排名，有序集成员按分数值递减(从大到小)排序O(Log(N))
 		System.out.println("zrevrank="+jedis.zrevrank("sortedSetKey1", "val2"));
-		//返回有序集中，成员的分数值
-		System.out.println("zcore="+jedis.zscore("sortedSetKey3", "val3"));
+		//返回有序集中，成员的分数值O(1)
+		System.out.println("zscore="+jedis.zscore("sortedSetKey3", "val3"));
 		//计算给定的一个或多个有序集的并集，并存储在新的 key 中,对于相同的元素,其score相加
 		System.out.println("zunionstore="+jedis.zunionstore("sortedSetKey4", "sortedSetKey1","sortedSetKey2","sortedSetKey3"));
 		System.out.println("zrange="+jedis.zrange("sortedSetKey4",0,10)) ;
-		System.out.println("zcore="+jedis.zscore("sortedSetKey4", "val3"));
-		//移除有序集合中的一个或多个成员
+		System.out.println("zscore="+jedis.zscore("sortedSetKey4", "val3"));
+		//移除有序集合中的一个或多个成员(Olog(N)*M)
 		System.out.println("zrem="+jedis.zrem("sortedSetKey1", "val1","val2"));
-		//移除有序集合中给定的字典区间的所有成员
+		//移除有序集合中给定的字典区间的所有成员O(log(n)+m)
 		System.out.println("zremrangebylex="+jedis.zremrangeByLex("sortedSetKey2", "[val3", "[val5"));
-		//移除有序集合中给定的排名区间的所有成员
+		//移除有序集合中给定的排名区间的所有成员O(log(n)+m)
 		System.out.println("zremrangebyrank="+jedis.zremrangeByRank("sortedSetKey1", 0, 2));
-		//移除有序集合中给定的分数区间的所有成员
+		//移除有序集合中给定的分数区间的所有成员O(log(n)+m)
 		System.out.println("zremrangebyscore="+jedis.zremrangeByScore("sortedSetKey4", 1.0, 3.0));
 		jedis.del("sortedSetKey1") ; 
 		jedis.del("sortedSetKey2") ; 

@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import org.springframework.core.io.Resource;
 
-import com.geccocrawler.gecco.GeccoEngine;
 import com.geccocrawler.gecco.pipeline.PipelineFactory;
 
 import util.data.DataParser;
@@ -12,6 +11,7 @@ import util.data.DataParserBuilder;
 
 public class GeccoStarter{ 
 	
+	@SuppressWarnings("unused")
 	private Configuration conf ;
 
 	private PipelineFactory pipelineFactory ; 
@@ -34,12 +34,12 @@ public class GeccoStarter{
 
 
 	public void start() throws Exception { 
-		for(GeccoConf geccoConf:conf.getConfs()){
-			GeccoEngine.create(geccoConf.getClassPath(),pipelineFactory)
-			           .start(geccoConf.getStartUrl())
-			           .interval(geccoConf.getInterval())
-			           .debug(false)
-			           .start();  
-		}
+//		for(GeccoConf geccoConf:conf.getConfs()){
+//			GeccoEngine.create(geccoConf.getClassPath(),pipelineFactory)
+//			           .start(geccoConf.getStartUrl())
+//			           .interval(geccoConf.getInterval())
+//			           .debug(false)
+//			           .start();  
+//		}
 	}
 }

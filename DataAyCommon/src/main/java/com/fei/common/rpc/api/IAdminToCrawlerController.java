@@ -8,9 +8,6 @@ import com.fei.netty.springmvc.zookeeper.server.ServerGroupEnum;
 public interface IAdminToCrawlerController {
 	
 	public CrawlerMonitorDto getCrawlerMonitor() ; 
-	
-	public void startCrawler() ;
-	
-	public void stopCrawler() ; 
+
 	
 }

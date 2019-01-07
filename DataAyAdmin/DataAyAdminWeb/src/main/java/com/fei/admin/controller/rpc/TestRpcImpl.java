@@ -4,9 +4,8 @@ import java.util.List;
 
 import com.fei.common.rpc.api.TestRpc;
 import com.fei.common.rpc.dto.TestDto;
-import com.fei.netty.springmvc.deprecated.RpcController;
 
-@RpcController
+//@RpcController
 public class TestRpcImpl implements TestRpc{
 
 	@Override

@@ -32,6 +32,7 @@
 		<jedis.version>2.8.0</jedis.version>
 		<aspect.version>1.8.9</aspect.version>
 		<fastdfs.version>0.4.0</fastdfs.version>
+		<spring.data.redis.version>1.6.0.RELEASE</spring.data.redis.version>
 	</properties>
 
 	<dependencyManagement>
@@ -67,6 +68,13 @@
 				<artifactId>jedis</artifactId>
 				<version>${jedis.version}</version>
 			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-redis</artifactId>
+				<version>${spring.data.redis.version}</version>
+			</dependency>
+
 			<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
 			<dependency>
 				<groupId>com.google.guava</groupId>
@@ -194,12 +202,12 @@
 				<artifactId>spring-data-hadoop</artifactId>
 				<version>${spring.data.hadoop.version}</version>
 			</dependency>
-			
+
 			<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-test</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
 
 			<!-- mybatis 組件 -->
 			<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->

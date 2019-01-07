@@ -1,10 +1,11 @@
 package com.fei.crawlers.controller;
 
+import org.springframework.stereotype.Component;
+
 import com.fei.common.rpc.api.IAdminToCrawlerController;
 import com.fei.common.rpc.dto.CrawlerMonitorDto;
-import com.fei.netty.springmvc.deprecated.RpcController;
 
-@RpcController
+@Component
 public class CrawlerConteroller implements IAdminToCrawlerController{
 
 	@Override
@@ -12,17 +13,6 @@ public class CrawlerConteroller implements IAdminToCrawlerController{
 		CrawlerMonitorDto dto = new CrawlerMonitorDto() ; 
 		dto.setThreadNum(1);
 		return dto;
-	}
-
-	@Override
-	public void startCrawler() {
-		
-		
-	}
-
-	@Override
-	public void stopCrawler() {
-		
 	}
 	
 	
